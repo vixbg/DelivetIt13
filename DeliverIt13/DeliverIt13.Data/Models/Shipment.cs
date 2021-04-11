@@ -1,24 +1,32 @@
 ﻿using DeliverIt13.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using DeliverIt13.Data.Enums;
 
-namespace DeliverIT_DemoProject.Models
+namespace DeliverIt13.Data.Models
 {
     public class Shipment
     {
-        public int ShipmentId { get; set; }
-
+        [Key]
+        public Guid ShipmentId { get; set; }
+        [Required]
         public DateTime DepartureDate { get; set; }
-
+        [Required]
         public DateTime ArrivalDate { get; set; }
+        [Required]
+        public ShipmentStatus Status { get; set; }
 
-        public int StatusId { get; set; }
-
-        public Status Status { get; set; }
-
-        public List<Parcel> Parcels { get; set; }
+        public List<Parcel> Parcels { get; set; } = new List<Parcel>();
+        public Guid DepartureWarehouseId { get; set; }
+        [ForeignKey(nameof(DepartureWarehouseId))]
+        public Warehouse DepartureWarehouse { get; set; }
+        public Guid ArrivalWarehouseId { get; set; }
+        [ForeignKey(nameof(ArrivalWarehouseId))]
+        public Warehouse ArrivalWarehouse { get; set; }
 
     }
 }

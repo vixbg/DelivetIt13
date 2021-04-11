@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
+using DeliverIt13.Data.Enums;
 
 namespace DeliverIt13.Data.Models
 {
-    public class Customer
+    public class Employee
     {
         [Key]
         public Guid UserId { get; set; }
@@ -20,13 +20,8 @@ namespace DeliverIt13.Data.Models
         [Required, StringLength(50, MinimumLength = 3, ErrorMessage = "Last name must be between 3 and 50 characters long!")]
         public string LastName { get; set; }
 
-        public Guid CountryId { get; set; }
-        [ForeignKey(nameof(CountryId))]
-        public Country Country { get; set; }
-        public Guid CityId { get; set; }
-        [ForeignKey(nameof(CityId))]
-        public City City { get; set; }
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "Street name must be between 3 and 100 characters long!")]
-        public string Street { get; set; }
+        public Guid WarehouseId { get; set; }
+        [ForeignKey(nameof(WarehouseId))]
+        public Warehouse Warehouse { get; set; }
     }
 }

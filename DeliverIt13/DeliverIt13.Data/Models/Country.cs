@@ -4,13 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DeliverIT_DemoProject.Models
+namespace DeliverIt13.Data.Models
 {
     public class Country
     {
-        public int CountryId { get; set; }
+        [Key]
+        public Guid CountryId { get; set; }
 
-        [StringLength(50, MinimumLength = 4, ErrorMessage = "Country name is not valid!")]
+        [Required, StringLength(56, MinimumLength = 4, ErrorMessage = "Country name must be between 4 and 56 characters.")]
         public string Name { get; set; }
 
     }
