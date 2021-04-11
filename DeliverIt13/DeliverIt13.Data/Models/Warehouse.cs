@@ -14,9 +14,6 @@ namespace DeliverIt13.Data.Models
         public Guid WarehouseId { get; set; }
         [Required]
         public WarehouseType Type { get; set; }
-        public Guid CountryId { get; set; }
-        [ForeignKey(nameof(CountryId))]
-        public Country Country { get; set; }
         public Guid CityId { get; set; }
         [ForeignKey(nameof(CityId))]
         public City City { get; set; }

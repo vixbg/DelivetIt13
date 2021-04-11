@@ -15,36 +15,31 @@ namespace DeliverIt13.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //City Cascade Fix
             modelBuilder.Entity<City>()
                 .HasOne<Country>(s => s.Country)
                 .WithMany()
                 .Metadata.DeleteBehavior = DeleteBehavior.Restrict;
-
+            
+            //Customer Cascade Fix
             modelBuilder.Entity<Customer>()
                 .HasOne<City>(s => s.City)
                 .WithMany()
                 .Metadata.DeleteBehavior = DeleteBehavior.Restrict;
 
-            modelBuilder.Entity<Customer>()
-                .HasOne(s => s.Country)
-                .WithMany()
-                .Metadata.DeleteBehavior = DeleteBehavior.Restrict;
-
+            //Warehouse Cascade Fix
             modelBuilder.Entity<Warehouse>()
                 .HasOne(s => s.City)
                 .WithMany()
                 .Metadata.DeleteBehavior = DeleteBehavior.Restrict;
 
-            modelBuilder.Entity<Warehouse>()
-                .HasOne(s => s.Country)
-                .WithMany()
-                .Metadata.DeleteBehavior = DeleteBehavior.Restrict;
-
+            //Employee Cascade Fix
             modelBuilder.Entity<Employee>()
                 .HasOne(s => s.Warehouse)
                 .WithMany()
                 .Metadata.DeleteBehavior = DeleteBehavior.Restrict;
 
+            //Shipment Cascade Fix
             modelBuilder.Entity<Shipment>()
                 .HasOne(s => s.ArrivalWarehouse)
                 .WithMany()
@@ -58,6 +53,7 @@ namespace DeliverIt13.Data
                 .WithOne(p => p.Shipment)
                 .Metadata.DeleteBehavior = DeleteBehavior.Cascade;
 
+            //Parcel Cascade Fix
             modelBuilder.Entity<Parcel>()
                 .HasOne(s => s.Warehouse)
                 .WithMany()

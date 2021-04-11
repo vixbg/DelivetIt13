@@ -64,9 +64,6 @@ namespace DeliverIt13.Data.Migrations
                     b.Property<Guid>("CityId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CountryId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -84,8 +81,6 @@ namespace DeliverIt13.Data.Migrations
                     b.HasKey("UserId");
 
                     b.HasIndex("CityId");
-
-                    b.HasIndex("CountryId");
 
                     b.ToTable("Customers");
                 });
@@ -208,9 +203,6 @@ namespace DeliverIt13.Data.Migrations
                     b.Property<Guid>("CityId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CountryId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Street")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -221,8 +213,6 @@ namespace DeliverIt13.Data.Migrations
                     b.HasKey("WarehouseId");
 
                     b.HasIndex("CityId");
-
-                    b.HasIndex("CountryId");
 
                     b.ToTable("Warehouses");
                 });
@@ -246,12 +236,6 @@ namespace DeliverIt13.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("DeliverIt13.Data.Models.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("DeliverIt13.Data.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -259,8 +243,6 @@ namespace DeliverIt13.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("City");
-
-                    b.Navigation("Country");
 
                     b.Navigation("User");
                 });
@@ -338,15 +320,7 @@ namespace DeliverIt13.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("DeliverIt13.Data.Models.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("City");
-
-                    b.Navigation("Country");
                 });
 
             modelBuilder.Entity("DeliverIt13.Data.Models.Shipment", b =>

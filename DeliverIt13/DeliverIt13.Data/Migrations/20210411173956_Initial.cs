@@ -59,7 +59,6 @@ namespace DeliverIt13.Data.Migrations
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CountryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Street = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
@@ -71,12 +70,6 @@ namespace DeliverIt13.Data.Migrations
                         column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "CityId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Customers_Countries_CountryId",
-                        column: x => x.CountryId,
-                        principalTable: "Countries",
-                        principalColumn: "CountryId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Customers_Users_UserId",
@@ -92,7 +85,6 @@ namespace DeliverIt13.Data.Migrations
                 {
                     WarehouseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
-                    CountryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Street = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
@@ -104,12 +96,6 @@ namespace DeliverIt13.Data.Migrations
                         column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "CityId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Warehouses_Countries_CountryId",
-                        column: x => x.CountryId,
-                        principalTable: "Countries",
-                        principalColumn: "CountryId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -212,11 +198,6 @@ namespace DeliverIt13.Data.Migrations
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Customers_CountryId",
-                table: "Customers",
-                column: "CountryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Employees_WarehouseId",
                 table: "Employees",
                 column: "WarehouseId");
@@ -250,11 +231,6 @@ namespace DeliverIt13.Data.Migrations
                 name: "IX_Warehouses_CityId",
                 table: "Warehouses",
                 column: "CityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Warehouses_CountryId",
-                table: "Warehouses",
-                column: "CountryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

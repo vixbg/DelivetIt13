@@ -19,10 +19,6 @@ namespace DeliverIt13.Data.Models
 
         [Required, StringLength(50, MinimumLength = 3, ErrorMessage = "Last name must be between 3 and 50 characters long!")]
         public string LastName { get; set; }
-
-        public Guid CountryId { get; set; }
-        [ForeignKey(nameof(CountryId))]
-        public Country Country { get; set; }
         public Guid CityId { get; set; }
         [ForeignKey(nameof(CityId))]
         public City City { get; set; }
