@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using DeliverIt13.Data.Enums;
 
 namespace DeliverIt13.Data.Models

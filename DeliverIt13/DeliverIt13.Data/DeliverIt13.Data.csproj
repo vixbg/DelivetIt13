@@ -7,9 +7,33 @@
   <ItemGroup>
     <None Remove="Seed\Cities.json" />
     <None Remove="Seed\Countries.json" />
+    <None Remove="Seed\Customers.json" />
+    <None Remove="Seed\Employees.json" />
+    <None Remove="Seed\Parcels.json" />
+    <None Remove="Seed\Shipments.json" />
+    <None Remove="Seed\Users.json" />
+    <None Remove="Seed\Warehouses.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Seed\Employees.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Seed\Shipments.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Seed\Parcels.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Seed\Customers.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Seed\Warehouses.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Seed\Users.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Seed\Cities.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
