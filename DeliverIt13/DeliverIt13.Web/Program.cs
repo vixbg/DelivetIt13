@@ -22,7 +22,10 @@ namespace DeliverIt13.Web
             MigrateDatabase(host);
             host.Run();
         }
-
+        /// <summary>
+        /// Seeds JSON data from Seed folder.
+        /// </summary>
+        /// <param name="host">Current Build of the Solution</param>
         private static void MigrateDatabase(IHost host)
         {
             using var scope = host.Services.CreateScope();
@@ -55,6 +58,7 @@ namespace DeliverIt13.Web
                 SetIdentityInsert<User>(dbContext, false);
 
             }
+
             if (!dbContext.Warehouses.Any() && File.Exists(@"Seed\Warehouses.json"))
             {
                 SetIdentityInsert<Warehouse>(dbContext, true);
@@ -80,8 +84,6 @@ namespace DeliverIt13.Web
                 SetIdentityInsert<Customer>(dbContext, false);
             }
 
-
-
             if (!dbContext.Shipments.Any() && File.Exists(@"Seed\Shipments.json"))
             {
                 SetIdentityInsert<Shipment>(dbContext, true);
@@ -97,7 +99,6 @@ namespace DeliverIt13.Web
                 dbContext.SaveChanges();
                 SetIdentityInsert<Parcel>(dbContext, false);
             }
-            
 
             transaction.Commit();
         }
@@ -108,7 +109,12 @@ namespace DeliverIt13.Web
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-
+        /// <summary>
+        /// Turns ON and OFF IDENTITY INSERT for specific database table.
+        /// </summary>
+        /// <typeparam name="TEntity">Generic that takes the form of the Model that will show which table to be used.</typeparam>
+        /// <param name="dbContext">Database Instance</param>
+        /// <param name="on">Boolean to change ON or OFF of the parameter.</param>
         private static void SetIdentityInsert<TEntity>(DbContext dbContext, bool on)
         {
             var entityType = dbContext.Model.FindEntityType(typeof(TEntity));
