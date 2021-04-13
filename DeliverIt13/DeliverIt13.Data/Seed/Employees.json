@@ -1,14 +1,16 @@
 ﻿[
   {
-    "UserId": "1",
+    "EmployeeId": 1,
+    "UserId": 1,
     "FirstName": "Yénora",
     "LastName": "Vlahos",
-    "WarehouseId": "1"
+    "WarehouseId": 1
   },
   {
-    "UserId": "2",
+    "EmployeeId": 2,
+    "UserId": 2,
     "FirstName": "Aloïs",
     "LastName": "Bjorkan",
-    "WarehouseId": "2"
+    "WarehouseId": 2
   }
 ]

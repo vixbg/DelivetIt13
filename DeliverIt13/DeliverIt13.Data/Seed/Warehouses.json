@@ -1,26 +1,26 @@
 ﻿[
   {
-    "WarehouseId": "1",
+    "WarehouseId": 1,
     "Type": 1,
-    "CityId": "1",
+    "CityId": 1,
     "Street": "0858 Mccormick Center"
   },
   {
-    "WarehouseId": "2",
+    "WarehouseId": 2,
     "Type": 1,
-    "CityId": "2",
+    "CityId": 2,
     "Street": "02 Loomis Lane"
   },
   {
-    "WarehouseId": "3",
+    "WarehouseId": 3,
     "Type": 0,
-    "CityId": "3",
+    "CityId": 3,
     "Street": "8589 Hintze Lane"
   },
   {
-    "WarehouseId": "4",
+    "WarehouseId": 4,
     "Type": 1,
-    "CityId": "4",
+    "CityId": 4,
     "Street": "3561 Green Trail"
   }
 ]

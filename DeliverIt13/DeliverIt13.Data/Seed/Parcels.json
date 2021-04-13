@@ -1,58 +1,11 @@
 ﻿[
   {
-    "ParcelId": "1",
-    "CustomerId": "3",
-    "WarehouseId": "1",
+    "ParcelId": 1,
+    "CustomerId": 3,
+    "WarehouseId": 1,
     "Weight": 25.8,
-    "Category": 0
-  },
-  {
-    "ParcelId": "2",
-    "CustomerId": "3",
-    "WarehouseId": "1",
-    "Weight": 27.8,
-    "Category": 1
-  },
-  {
-    "ParcelId": "3",
-    "CustomerId": "3",
-    "WarehouseId": "1",
-    "Weight": 25.1,
-    "Category": 2
-  },
-  {
-    "ParcelId": "4",
-    "CustomerId": "4",
-    "WarehouseId": "2",
-    "Weight": 8.4,
-    "Category": 0
-  },
-  {
-    "ParcelId": "5",
-    "CustomerId": "4",
-    "WarehouseId": "2",
-    "Weight": 17.3,
-    "Category": 2
-  },
-  {
-    "ParcelId": "6",
-    "CustomerId": "4",
-    "WarehouseId": "2",
-    "Weight": 16.5,
-    "Category": 1
-  },
-  {
-    "ParcelId": "7",
-    "CustomerId": "4",
-    "WarehouseId": "2",
-    "Weight": 26.9,
-    "Category": 0
-  },
-  {
-    "ParcelId": "8",
-    "CustomerId": "5",
-    "WarehouseId": "1",
-    "Weight": 3.7,
-    "Category": 0
+    "Category": 0,
+    "ShipmentId": 1
   }
+  
 ]

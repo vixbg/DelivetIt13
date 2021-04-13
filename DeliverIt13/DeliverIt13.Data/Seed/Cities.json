@@ -1,22 +1,22 @@
 ﻿[
   {
-    "CityId": "1",
-    "CountryId": "1",
+    "CityId": 1,
+    "CountryId": 1,
     "Name": "London"
   },
   {
-    "CityId": "2",
-    "CountryId": "2",
+    "CityId": 2,
+    "CountryId": 2,
     "Name": "Berlin"
   },
   {
-    "CityId": "3",
-    "CountryId": "3",
+    "CityId": 3,
+    "CountryId": 3,
     "Name": "Sofia"
   },
   {
-    "CityId": "4",
-    "CountryId": "3",
+    "CityId": 4,
+    "CountryId": 3,
     "Name": "Burgas"
   }
 ]

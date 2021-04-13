@@ -1,23 +1,26 @@
 ﻿[
   {
-    "UserId": "3",
+    "CustomerId": 1,
+    "UserId": 3,
     "FirstName": "Lèi",
     "LastName": "Keave",
-    "CityId": "3",
+    "CityId": 3,
     "Street": "86471 Pierstorff Crossing"
   },
   {
-    "UserId": "4",
+    "CustomerId": 2,
+    "UserId": 4,
     "FirstName": "Ruò",
     "LastName": "McArd",
-    "CityId": "3",
+    "CityId": 3,
     "Street": "09 Loeprich Street"
   },
   {
-    "UserId": "5",
+    "CustomerId": 3,
+    "UserId": 5,
     "FirstName": "Séréna",
     "LastName": "Dunsmuir",
-    "CityId": "3",
+    "CityId": 3,
     "Street": "5557 Welch Place"
   }
 ]

@@ -7,6 +7,7 @@ namespace DeliverIt13.Data.Models
     public class Employee
     {
         [Key]
+        public int EmployeeId { get; set; }
         public int UserId { get; set; }
         [ForeignKey(nameof(UserId))]
         public User User { get; set; }

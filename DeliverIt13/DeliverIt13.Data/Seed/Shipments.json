@@ -1,18 +1,18 @@
 ﻿[
   {
-    "ShipmentId": "1",
-    "DepartureDate": "04/10/2023",
-    "ArrivalDate": "19/11/2023",
-    "DepartureWarehouseId": "1",
-    "ArrivalWarehouseId": "3",
+    "ShipmentId": 1,
+    "DepartureDate": "2023-10-10",
+    "ArrivalDate": "2023-11-19",
+    "DepartureWarehouseId": 1,
+    "ArrivalWarehouseId": 3,
     "Status": 3
   },
   {
-    "ShipmentId": "2",
-    "DepartureDate": "08/10/2023",
-    "ArrivalDate": "29/11/2023",
-    "DepartureWarehouseId": "2",
-    "ArrivalWarehouseId": "3",
+    "ShipmentId": 2,
+    "DepartureDate": "2023-10-08",
+    "ArrivalDate": "2023-11-29",
+    "DepartureWarehouseId": 2,
+    "ArrivalWarehouseId": 3,
     "Status": 1
   }
 ]
