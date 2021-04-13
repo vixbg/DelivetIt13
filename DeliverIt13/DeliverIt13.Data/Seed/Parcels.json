@@ -3,9 +3,40 @@
     "ParcelId": 1,
     "CustomerId": 3,
     "WarehouseId": 1,
-    "Weight": 25.8,
-    "Category": 0,
+    "Weight": 38.06,
+    "Category": 2,
     "ShipmentId": 1
+  },
+  {
+    "ParcelId": 2,
+    "CustomerId": 2,
+    "WarehouseId": 1,
+    "Weight": 49.89,
+    "Category": 2,
+    "ShipmentId": 1
+  },
+  {
+    "ParcelId": 3,
+    "CustomerId": 2,
+    "WarehouseId": 2,
+    "Weight": 8.08,
+    "Category": 1,
+    "ShipmentId": 2
+  },
+  {
+    "ParcelId": 4,
+    "CustomerId": 1,
+    "WarehouseId": 2,
+    "Weight": 33.86,
+    "Category": 1,
+    "ShipmentId": 2
+  },
+  {
+    "ParcelId": 5,
+    "CustomerId": 2,
+    "WarehouseId": 2,
+    "Weight": 87.25,
+    "Category": 2,
+    "ShipmentId": 2
   }
-  
 ]
