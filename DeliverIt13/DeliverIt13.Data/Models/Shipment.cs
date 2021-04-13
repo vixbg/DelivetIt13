@@ -9,7 +9,7 @@ namespace DeliverIt13.Data.Models
     public class Shipment
     {
         [Key]
-        public Guid ShipmentId { get; set; }
+        public int ShipmentId { get; set; }
         [Required]
         public DateTime DepartureDate { get; set; }
         [Required]
@@ -18,10 +18,10 @@ namespace DeliverIt13.Data.Models
         public ShipmentStatus Status { get; set; }
 
         public List<Parcel> Parcels { get; set; } = new List<Parcel>();
-        public Guid DepartureWarehouseId { get; set; }
+        public int DepartureWarehouseId { get; set; }
         [ForeignKey(nameof(DepartureWarehouseId))]
         public Warehouse DepartureWarehouse { get; set; }
-        public Guid ArrivalWarehouseId { get; set; }
+        public int ArrivalWarehouseId { get; set; }
         [ForeignKey(nameof(ArrivalWarehouseId))]
         public Warehouse ArrivalWarehouse { get; set; }
 

@@ -1,22 +1,22 @@
 ﻿[
   {
-    "CityId": "100598db-1790-4a21-bd30-2cee0a4a591e",
-    "CountryId": "6dda7d64-2654-4809-be0a-46ff5b202ac6",
+    "CityId": "1",
+    "CountryId": "1",
     "Name": "London"
   },
   {
-    "CityId": "0a170a04-63b2-4942-9c45-6f071d67eda8",
-    "CountryId": "711802e6-0713-41fd-88be-b236619b29fe",
+    "CityId": "2",
+    "CountryId": "2",
     "Name": "Berlin"
   },
   {
-    "CityId": "93a218e2-69f8-4196-b65b-810372856dee",
-    "CountryId": "46526df8-0616-40c2-bfb5-be6ed38a4ff7",
+    "CityId": "3",
+    "CountryId": "3",
     "Name": "Sofia"
   },
   {
-    "CityId": "384e25d6-3e38-4405-b6f8-43898bec9e62",
-    "CountryId": "46526df8-0616-40c2-bfb5-be6ed38a4ff7",
+    "CityId": "4",
+    "CountryId": "3",
     "Name": "Burgas"
   }
 ]

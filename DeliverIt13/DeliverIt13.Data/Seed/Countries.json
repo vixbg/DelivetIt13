@@ -1,14 +1,14 @@
 ﻿[
   {
-    "CountryId": "6dda7d64-2654-4809-be0a-46ff5b202ac6",
+    "CountryId": "1",
     "Name": "United Kingdom"
   },
   {
-    "CountryId": "711802e6-0713-41fd-88be-b236619b29fe",
+    "CountryId": "2",
     "Name": "Germany"
   },
   {
-    "CountryId": "46526df8-0616-40c2-bfb5-be6ed38a4ff7",
+    "CountryId": "3",
     "Name": "Bulgaria"
   }
 ]

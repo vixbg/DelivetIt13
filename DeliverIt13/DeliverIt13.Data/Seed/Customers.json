@@ -1,23 +1,23 @@
 ﻿[
   {
-    "UserId": "9bc69922-5e23-4e6f-8269-132e221b9627",
+    "UserId": "3",
     "FirstName": "Lèi",
     "LastName": "Keave",
-    "CityId": "93a218e2-69f8-4196-b65b-810372856dee",
+    "CityId": "3",
     "Street": "86471 Pierstorff Crossing"
   },
   {
-    "UserId": "7cb4fdfa-456b-4fc4-a7b3-b3ec15b93ee4",
+    "UserId": "4",
     "FirstName": "Ruò",
     "LastName": "McArd",
-    "CityId": "93a218e2-69f8-4196-b65b-810372856dee",
+    "CityId": "3",
     "Street": "09 Loeprich Street"
   },
   {
-    "UserId": "6334ad83-1412-4f4e-85ea-d394611438f7",
+    "UserId": "5",
     "FirstName": "Séréna",
     "LastName": "Dunsmuir",
-    "CityId": "384e25d6-3e38-4405-b6f8-43898bec9e62",
+    "CityId": "3",
     "Street": "5557 Welch Place"
   }
 ]

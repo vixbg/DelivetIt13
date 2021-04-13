@@ -1,26 +1,26 @@
 ﻿[
   {
-    "WarehouseId": "fffb0c36-9ccf-4d5e-92fa-2f60a5f94c0f",
+    "WarehouseId": "1",
     "Type": 1,
-    "CityId": "100598db-1790-4a21-bd30-2cee0a4a591e",
+    "CityId": "1",
     "Street": "0858 Mccormick Center"
   },
   {
-    "WarehouseId": "a42b5c24-6b80-4145-b95c-2ec674495506",
+    "WarehouseId": "2",
     "Type": 1,
-    "CityId": "0a170a04-63b2-4942-9c45-6f071d67eda8",
+    "CityId": "2",
     "Street": "02 Loomis Lane"
   },
   {
-    "WarehouseId": "1202cad3-0cd9-43ca-a692-e0f47e5fa290",
+    "WarehouseId": "3",
     "Type": 0,
-    "CityId": "93a218e2-69f8-4196-b65b-810372856dee",
+    "CityId": "3",
     "Street": "8589 Hintze Lane"
   },
   {
-    "WarehouseId": "1202cad3-0cd9-43ca-a692-e0f47e5fa290",
+    "WarehouseId": "4",
     "Type": 1,
-    "CityId": "384e25d6-3e38-4405-b6f8-43898bec9e62",
+    "CityId": "4",
     "Street": "3561 Green Trail"
   }
 ]
