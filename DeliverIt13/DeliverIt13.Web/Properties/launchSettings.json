@@ -2,21 +2,30 @@
   "profiles": {
     "DeliverIt13.Web.Vix": {
       "commandName": "Project",
+      "workingDirectory": ".\\bin\\Debug\\netcoreapp3.1",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development.Vix"
       },
-      "applicationUrl": "http://localhost:5000",
-      "workingDirectory": ".\\bin\\Debug\\netcoreapp3.1"
+      "applicationUrl": "http://localhost:5000"
     },
     "DeliverIt13.Web.Rumi": {
       "commandName": "Project",
+      "workingDirectory": ".\\bin\\Debug\\netcoreapp3.1",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development.Rumi"
       },
-      "applicationUrl": "http://localhost:5000",
-      "workingDirectory": ".\\bin\\Debug\\netcoreapp3.1"
+      "applicationUrl": "http://localhost:5000"
+    },
+    "DeliverIt13.Web.VixLaptop": {
+      "commandName": "Project",
+      "workingDirectory": ".\\bin\\Debug\\netcoreapp3.1",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development.VixLaptop"
+      },
+      "applicationUrl": "http://localhost:5000"
     }
   }
 }

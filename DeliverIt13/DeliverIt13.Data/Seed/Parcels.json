@@ -1,142 +1,42 @@
 ﻿[
   {
-    "ParcelId": "86b4347e-7778-4bbe-9b1e-466f1d5885a2",
-    "CustomerId": "9bc69922-5e23-4e6f-8269-132e221b9627",
-    "WarehouseId": "fffb0c36-9ccf-4d5e-92fa-2f60a5f94c0f",
-    "Weight": 25.8,
-    "Category": 0
+    "ParcelId": 1,
+    "CustomerId": 3,
+    "WarehouseId": 1,
+    "Weight": 38.06,
+    "Category": 2,
+    "ShipmentId": 1
   },
   {
-    "ParcelId": "f81d377a-0f6d-4e29-a478-87606e530a52",
-    "CustomerId": "9bc69922-5e23-4e6f-8269-132e221b9627",
-    "WarehouseId": "fffb0c36-9ccf-4d5e-92fa-2f60a5f94c0f",
-    "Weight": 27.8,
-    "Category": 1
+    "ParcelId": 2,
+    "CustomerId": 2,
+    "WarehouseId": 1,
+    "Weight": 49.89,
+    "Category": 2,
+    "ShipmentId": 1
   },
   {
-    "ParcelId": "d000d8dd-75e3-4d04-912f-676fa461cb4b",
-    "CustomerId": "9bc69922-5e23-4e6f-8269-132e221b9627",
-    "WarehouseId": "fffb0c36-9ccf-4d5e-92fa-2f60a5f94c0f",
-    "Weight": 25.1,
-    "Category": 2
+    "ParcelId": 3,
+    "CustomerId": 2,
+    "WarehouseId": 2,
+    "Weight": 8.08,
+    "Category": 1,
+    "ShipmentId": 2
   },
   {
-    "ParcelId": "ec1b67fc-3f1e-47e4-875e-2639a193fcf9",
-    "CustomerId": "9bc69922-5e23-4e6f-8269-132e221b9627",
-    "WarehouseId": "fffb0c36-9ccf-4d5e-92fa-2f60a5f94c0f",
-    "Weight": 8.4,
-    "Category": 0
+    "ParcelId": 4,
+    "CustomerId": 1,
+    "WarehouseId": 2,
+    "Weight": 33.86,
+    "Category": 1,
+    "ShipmentId": 2
   },
   {
-    "ParcelId": "8873caee-018a-4df7-b1cd-78ded7908156",
-    "CustomerId": "9bc69922-5e23-4e6f-8269-132e221b9627",
-    "WarehouseId": "fffb0c36-9ccf-4d5e-92fa-2f60a5f94c0f",
-    "Weight": 17.3,
-    "Category": 2
-  },
-  {
-    "ParcelId": "914443d4-52e7-491c-b489-01f31e45b7dd",
-    "CustomerId": "9bc69922-5e23-4e6f-8269-132e221b9627",
-    "WarehouseId": "fffb0c36-9ccf-4d5e-92fa-2f60a5f94c0f",
-    "Weight": 16.5,
-    "Category": 1
-  },
-  {
-    "ParcelId": "6a330afe-e506-4a78-8768-b909353b0a4b",
-    "CustomerId": "9bc69922-5e23-4e6f-8269-132e221b9627",
-    "WarehouseId": "fffb0c36-9ccf-4d5e-92fa-2f60a5f94c0f",
-    "Weight": 26.9,
-    "Category": 0
-  },
-  {
-    "ParcelId": "560320e0-c0ab-43ba-9b17-8836c5f29d39",
-    "CustomerId": "7cb4fdfa-456b-4fc4-a7b3-b3ec15b93ee4",
-    "WarehouseId": "fffb0c36-9ccf-4d5e-92fa-2f60a5f94c0f",
-    "Weight": 3.7,
-    "Category": 0
-  },
-  {
-    "ParcelId": "60f95fad-2042-4bf2-8dc3-5e44cd64360d",
-    "CustomerId": "7cb4fdfa-456b-4fc4-a7b3-b3ec15b93ee4",
-    "WarehouseId": "fffb0c36-9ccf-4d5e-92fa-2f60a5f94c0f",
-    "Weight": 9.1,
-    "Category": 0
-  },
-  {
-    "ParcelId": "cae19118-345a-400e-aaf9-9d1fa81d1f07",
-    "CustomerId": "7cb4fdfa-456b-4fc4-a7b3-b3ec15b93ee4",
-    "WarehouseId": "a42b5c24-6b80-4145-b95c-2ec674495506",
-    "Weight": 5.0,
-    "Category": 2
-  },
-  {
-    "ParcelId": "54393cdf-0aea-446f-a997-9529755bdaa3",
-    "CustomerId": "7cb4fdfa-456b-4fc4-a7b3-b3ec15b93ee4",
-    "WarehouseId": "a42b5c24-6b80-4145-b95c-2ec674495506",
-    "Weight": 5.0,
-    "Category": 0
-  },
-  {
-    "ParcelId": "10204e98-353f-4605-9f86-b1140b9d30eb",
-    "CustomerId": "7cb4fdfa-456b-4fc4-a7b3-b3ec15b93ee4",
-    "WarehouseId": "a42b5c24-6b80-4145-b95c-2ec674495506",
-    "Weight": 13.3,
-    "Category": 2
-  },
-  {
-    "ParcelId": "3966246b-daaf-43a4-80a3-67d1e4400688",
-    "CustomerId": "7cb4fdfa-456b-4fc4-a7b3-b3ec15b93ee4",
-    "WarehouseId": "a42b5c24-6b80-4145-b95c-2ec674495506",
-    "Weight": 27.5,
-    "Category": 0
-  },
-  {
-    "ParcelId": "f86095f1-8898-4d5d-aa1e-b4b5df1d4a59",
-    "CustomerId": "7cb4fdfa-456b-4fc4-a7b3-b3ec15b93ee4",
-    "WarehouseId": "a42b5c24-6b80-4145-b95c-2ec674495506",
-    "Weight": 21.2,
-    "Category": 0
-  },
-  {
-    "ParcelId": "51451106-2e65-48c0-99de-b257cea262f2",
-    "CustomerId": "6334ad83-1412-4f4e-85ea-d394611438f7",
-    "WarehouseId": "a42b5c24-6b80-4145-b95c-2ec674495506",
-    "Weight": 16.9,
-    "Category": 2
-  },
-  {
-    "ParcelId": "c0e9c1b1-585d-4e4d-b60e-9049593efae0",
-    "CustomerId": "6334ad83-1412-4f4e-85ea-d394611438f7",
-    "WarehouseId": "a42b5c24-6b80-4145-b95c-2ec674495506",
-    "Weight": 17.4,
-    "Category": 2
-  },
-  {
-    "ParcelId": "cfc6acca-7900-4c23-b04a-5668c9796476",
-    "CustomerId": "6334ad83-1412-4f4e-85ea-d394611438f7",
-    "WarehouseId": "a42b5c24-6b80-4145-b95c-2ec674495506",
-    "Weight": 5.7,
-    "Category": 0
-  },
-  {
-    "ParcelId": "608bbfb9-9a2e-4af9-b352-68eb24331e76",
-    "CustomerId": "6334ad83-1412-4f4e-85ea-d394611438f7",
-    "WarehouseId": "a42b5c24-6b80-4145-b95c-2ec674495506",
-    "Weight": 3.6,
-    "Category": 1
-  },
-  {
-    "ParcelId": "02cd2528-f387-467e-831a-cdcd46306bb6",
-    "CustomerId": "6334ad83-1412-4f4e-85ea-d394611438f7",
-    "WarehouseId": "384e25d6-3e38-4405-b6f8-43898bec9e62",
-    "Weight": 4.1,
-    "Category": 1
-  },
-  {
-    "ParcelId": "348eb8f9-6264-42f2-8d53-5b30e15834a5",
-    "CustomerId": "6334ad83-1412-4f4e-85ea-d394611438f7",
-    "WarehouseId": "384e25d6-3e38-4405-b6f8-43898bec9e62",
-    "Weight": 4.5,
-    "Category": 2
+    "ParcelId": 5,
+    "CustomerId": 2,
+    "WarehouseId": 2,
+    "Weight": 87.25,
+    "Category": 2,
+    "ShipmentId": 2
   }
 ]

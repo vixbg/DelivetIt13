@@ -1,18 +1,18 @@
 ﻿[
   {
-    "ShipmentId": "b0d8bf26-528f-4305-b894-9594cc1ce6ef",
-    "DepartureDate": "04/10/2023",
-    "ArrivalDate": "19/11/2023",
-    "DepartureWarehouseId": "fffb0c36-9ccf-4d5e-92fa-2f60a5f94c0f",
-    "ArrivalWarehouseId": "93a218e2-69f8-4196-b65b-810372856dee",
+    "ShipmentId": 1,
+    "DepartureDate": "2023-10-10",
+    "ArrivalDate": "2023-11-19",
+    "DepartureWarehouseId": 1,
+    "ArrivalWarehouseId": 3,
     "Status": 3
   },
   {
-    "ShipmentId": "585505ad-cad8-4ad1-bbfc-c8b912b20f87",
-    "DepartureDate": "08/10/2023",
-    "ArrivalDate": "29/11/2023",
-    "DepartureWarehouseId": "a42b5c24-6b80-4145-b95c-2ec674495506",
-    "ArrivalWarehouseId": "93a218e2-69f8-4196-b65b-810372856dee",
+    "ShipmentId": 2,
+    "DepartureDate": "2023-10-08",
+    "ArrivalDate": "2023-11-29",
+    "DepartureWarehouseId": 2,
+    "ArrivalWarehouseId": 3,
     "Status": 1
   }
 ]
