@@ -1,16 +1,12 @@
 ﻿using DeliverIt13.Services.Contracts;
 using DeliverIt13.Services.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DeliverIt13.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CitiesController : Controller
+    public class CitiesController : ControllerBase
     {
         private readonly ICityService cityService;
 
@@ -32,6 +28,7 @@ namespace DeliverIt13.Web.Controllers
                 return this.BadRequest();
             }
         }
+
 
         [HttpGet("")]
         public IActionResult GetAll()

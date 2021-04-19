@@ -109,6 +109,8 @@ namespace DeliverIt13.Web
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+
         /// <summary>
         /// Turns ON and OFF IDENTITY INSERT for specific database table.
         /// </summary>
