@@ -23,7 +23,12 @@ namespace DeliverIt13.Services
         {
             City city = this.dbContext.Cities.FirstOrDefault(c => c.CityId.Equals(id));
 
-            CityDTO cityDTO = new CityDTO();
+            if (city == null)
+            {
+                throw new ArgumentException("City was not found!");
+            }
+
+            CityDTO cityDTO = new CityDTO(city);
             cityDTO.Name = city.Name;
 
             return cityDTO;
@@ -37,8 +42,7 @@ namespace DeliverIt13.Services
 
             foreach (var city in cities)
             {
-                CityDTO cityDTO = new CityDTO();
-                cityDTO.Name = city.Name;
+                CityDTO cityDTO = new CityDTO(city);
                 citiesDTO.Add(cityDTO);
             }
 
