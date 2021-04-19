@@ -14,11 +14,11 @@ namespace DeliverIt13.Web.Helpers
             this.userService = userService;
         }
 
-        public UserAuthDTO TryGetUser(string authorizationHeader)
+        public UserAuthDTO TryGetUser(string credentialsHeader)
         {
             try
             {
-                return this.userService.GetByEmail(authorizationHeader);
+                return this.userService.GetByEmail(credentialsHeader);
             }
             catch (Exception e)
             {

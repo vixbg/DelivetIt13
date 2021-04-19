@@ -5,6 +5,6 @@ namespace DeliverIt13.Web.Helpers
 {
     public interface IAuthHelper
     {
-        UserAuthDTO TryGetUser(string authorizationHeader);
+        UserAuthDTO TryGetUser(string credentialsHeader);
     }
 }

@@ -2,6 +2,7 @@
 using DeliverIt13.Data.Enums;
 using DeliverIt13.Services.Contracts;
 using DeliverIt13.Services.Models;
+using DeliverIt13.Services.Models.ParcelDTOs;
 using DeliverIt13.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,17 +10,16 @@ namespace DeliverIt13.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class WarehouseController : ControllerBase
+    public class ParcelController : ControllerBase
     {
-        private readonly IWarehouseService warehouseService;
+        private readonly IParcelService parcelService;
         private readonly IAuthHelper authHelper;
 
-        public WarehouseController(IWarehouseService warehouseService,IAuthHelper authHelper)
+        public ParcelController(IParcelService parcelService, IAuthHelper authHelper)
         {
-            this.warehouseService = warehouseService;
+            this.parcelService = parcelService;
             this.authHelper = authHelper;
         }
-
 
         [HttpGet("{id}")]
         public IActionResult Get(int id,[FromHeader] string credentials)
@@ -31,8 +31,8 @@ namespace DeliverIt13.Web.Controllers
                 {
                     return Unauthorized(credentials);
                 }
-                var warehouse = this.warehouseService.Get(id);
-                return Ok(warehouse);
+                var parcel = this.parcelService.Get(id);
+                return Ok(parcel);
             }
             catch (Exception e)
             {
@@ -41,12 +41,38 @@ namespace DeliverIt13.Web.Controllers
         }
 
         [HttpGet("")]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromHeader] string credentials)
         {
             try
             {
-                var warehouses = this.warehouseService.GetAll();
-                return Ok(warehouses);
+                var user = this.authHelper.TryGetUser(credentials);
+                if (user.Type != UserType.Employee)
+                {
+                    return Unauthorized(credentials);
+                }
+                var parcels = this.parcelService.GetAll();
+                return Ok(parcels);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("")]
+        public IActionResult GetAllCustomer([FromHeader] string credentials)
+        {
+            try
+            {
+                var user = this.authHelper.TryGetUser(credentials);
+                if (user.Type != UserType.Customer)
+                {
+                    return Unauthorized(credentials);
+                }
+                
+                var parcels = this.parcelService.GetAllCustomer(user);
+
+                return Ok(parcels);
             }
             catch (Exception e)
             {
@@ -55,7 +81,7 @@ namespace DeliverIt13.Web.Controllers
         }
 
         [HttpPost("")]
-        public IActionResult Post([FromBody] WarehouseDTO warehouse, [FromHeader] string credentials)
+        public IActionResult Post([FromBody] ParcelCreateDTO parcel, [FromHeader] string credentials)
         {
 
             try
@@ -65,8 +91,8 @@ namespace DeliverIt13.Web.Controllers
                 {
                     return Unauthorized(credentials);
                 }
-                this.warehouseService.Create(warehouse);
-                return Created("Warehouse Created", warehouse);
+                this.parcelService.Create(parcel);
+                return Created("Parcel Created", parcel);
             }
             catch (Exception e)
             {
@@ -84,7 +110,7 @@ namespace DeliverIt13.Web.Controllers
                 {
                     return Unauthorized(credentials);
                 }
-                this.warehouseService.Delete(id);
+                this.parcelService.Delete(id);
                 return NoContent();
             }
             catch (Exception e)
@@ -94,7 +120,7 @@ namespace DeliverIt13.Web.Controllers
         }
 
         [HttpPut("")]
-        public IActionResult Put([FromBody] WarehouseUpdateDTO warehouse,[FromHeader] string credentials)
+        public IActionResult Put([FromBody] ParcelCreateDTO parcel,[FromHeader] string credentials)
         {
             try
             {
@@ -103,8 +129,8 @@ namespace DeliverIt13.Web.Controllers
                 {
                     return Unauthorized(credentials);
                 }
-                var updatedWarehouse = this.warehouseService.Update(warehouse);
-                return Ok(updatedWarehouse);
+                var updatedParcel = this.parcelService.Update(parcel);
+                return Ok(updatedParcel);
             }
             catch (Exception e)
             {

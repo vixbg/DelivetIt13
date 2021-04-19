@@ -1,4 +1,5 @@
 ﻿using System;
+using DeliverIt13.Data.Enums;
 using DeliverIt13.Services.Contracts;
 using DeliverIt13.Services.Models;
 using DeliverIt13.Web.Helpers;
@@ -20,11 +21,15 @@ namespace DeliverIt13.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id,[FromHeader] string authorization)
+        public IActionResult Get(int id,[FromHeader] string credentials)
         {
             try
             {
-                this.authHelper.TryGetUser(authorization);
+                var user = this.authHelper.TryGetUser(credentials);
+                if (user.Type != UserType.Employee)
+                {
+                    return Unauthorized(credentials);
+                }
                 CityDTO city = this.cityService.Get(id);
                 return Ok(city);
             }
@@ -36,10 +41,22 @@ namespace DeliverIt13.Web.Controllers
 
 
         [HttpGet("")]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromHeader] string credentials)
         {
-            var cities = this.cityService.GetAll();
-            return Ok(cities);
+            try
+            {
+                var user = this.authHelper.TryGetUser(credentials);
+                if (user.Type != UserType.Employee)
+                {
+                    return Unauthorized(credentials);
+                }
+                var cities = this.cityService.GetAll();
+                return Ok(cities);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

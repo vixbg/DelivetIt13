@@ -13,6 +13,7 @@ namespace DeliverIt13.Services
     public class WarehouseService : IWarehouseService
     {
         private readonly DeliverItContext dbContext;
+
         public WarehouseService(DeliverItContext dbContext)
         {
             this.dbContext = dbContext;
@@ -111,7 +112,6 @@ namespace DeliverIt13.Services
             warehouse.CityId = warehouseDTO.CityId;
             warehouse.Street = warehouseDTO.Street;
             warehouse.Type = warehouseDTO.WarehouseType;
-            this.dbContext.Warehouses.Update(warehouse);
             this.dbContext.SaveChanges();
 
             return warehouseDTO;
