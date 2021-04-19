@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using DeliverIt13.Data.Enums;
 
+
 namespace DeliverIt13.Data.Models
 {
     public class User

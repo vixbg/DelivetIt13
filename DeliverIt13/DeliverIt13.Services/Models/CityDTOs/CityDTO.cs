@@ -11,6 +11,5 @@ namespace DeliverIt13.Services.Models
         }
         public int CityId { get; set; }
         public string Name { get; set; }
-
     }
 }

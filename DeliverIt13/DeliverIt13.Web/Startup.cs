@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DeliverIt13.Data;
+using DeliverIt13.Services;
+using DeliverIt13.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using DeliverIt13.Services.Contracts;
-using DeliverIt13.Services;
 
 namespace DeliverIt13.Web
 {
@@ -25,9 +25,11 @@ namespace DeliverIt13.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
+            
             services.AddDbContext<DeliverItContext>(options => options.UseSqlServer(_configuration.GetConnectionString("EntityString")));
             services.AddScoped<ICityService, CityService>();
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<IPublicService, PublicService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,13 +44,11 @@ namespace DeliverIt13.Web
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapGet("/", async context =>
                 {
                     await context.Response.WriteAsync("Hello World!");
                 });
-
-                endpoints.MapControllers();
-
             });
         }
     }
