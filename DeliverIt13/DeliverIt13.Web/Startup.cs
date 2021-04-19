@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using DeliverIt13.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using DeliverIt13.Services.Contracts;
+using DeliverIt13.Services;
 
 namespace DeliverIt13.Web
 {
@@ -22,7 +24,10 @@ namespace DeliverIt13.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
+
             services.AddDbContext<DeliverItContext>(options => options.UseSqlServer(_configuration.GetConnectionString("EntityString")));
+            services.AddScoped<ICityService, CityService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,7 +38,7 @@ namespace DeliverIt13.Web
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
+            app.UseRouting();            
 
             app.UseEndpoints(endpoints =>
             {
@@ -41,6 +46,9 @@ namespace DeliverIt13.Web
                 {
                     await context.Response.WriteAsync("Hello World!");
                 });
+
+                endpoints.MapControllers();
+
             });
         }
     }

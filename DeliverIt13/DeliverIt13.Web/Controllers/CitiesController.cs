@@ -22,9 +22,15 @@ namespace DeliverIt13.Web.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            CityDTO city = this.cityService.Get(id);
-
-            return Ok(city);
+            try
+            {
+                CityDTO city = this.cityService.Get(id);
+                return Ok(city);
+            }
+            catch (Exception)
+            {
+                return this.BadRequest();
+            }
         }
 
         [HttpGet("")]
