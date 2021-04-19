@@ -1,5 +1,7 @@
-﻿using DeliverIt13.Services.Contracts;
+﻿using System;
+using DeliverIt13.Services.Contracts;
 using DeliverIt13.Services.Models;
+using DeliverIt13.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeliverIt13.Web.Controllers
@@ -9,23 +11,26 @@ namespace DeliverIt13.Web.Controllers
     public class CitiesController : ControllerBase
     {
         private readonly ICityService cityService;
+        private readonly IAuthHelper authHelper;
 
-        public CitiesController(ICityService cityService)
+        public CitiesController(ICityService cityService, IAuthHelper authHelper)
         {
             this.cityService = cityService;
+            this.authHelper = authHelper;
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult Get(int id,[FromHeader] string authorization)
         {
             try
             {
+                this.authHelper.TryGetUser(authorization);
                 CityDTO city = this.cityService.Get(id);
                 return Ok(city);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return this.BadRequest();
+                return BadRequest(e.Message);
             }
         }
 

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using DeliverIt13.Data;
 using DeliverIt13.Services;
 using DeliverIt13.Services.Contracts;
+using DeliverIt13.Web.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -30,6 +31,11 @@ namespace DeliverIt13.Web
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IPublicService, PublicService>();
+            services.AddScoped<IWarehouseService, WarehouseService>();
+            services.AddScoped<IShipmentService, ShipmentService>();
+            services.AddScoped<IAuthHelper, AuthHelper>();
+            services.AddScoped<IUserService, UserService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
