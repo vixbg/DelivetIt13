@@ -1,3 +1,7 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +13,7 @@ using DeliverIt13.Services.Contracts;
 using DeliverIt13.Web.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.OpenApi.Models;
 
 namespace DeliverIt13.Web
 {
@@ -28,6 +33,7 @@ namespace DeliverIt13.Web
             services.AddControllers();
             
             services.AddDbContext<DeliverItContext>(options => options.UseSqlServer(_configuration.GetConnectionString("EntityString")));
+
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IPublicService, PublicService>();
@@ -37,17 +43,33 @@ namespace DeliverIt13.Web
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IParcelService, ParcelService>();
 
+            services.AddSwaggerGen(c => c.ResolveConflictingActions(a => a.First()));
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DeliverIt13", Version = "V1", Description = "This is Swagger documentation about DeliverIt13" });
+
+                var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
+                c.IncludeXmlComments(filePath);
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (!env.IsEnvironment(Environments.Production))
             {
                 app.UseDeveloperExceptionPage();
+
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "DeliverIt13");
+                });
             }
 
-            app.UseRouting();            
+            app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {

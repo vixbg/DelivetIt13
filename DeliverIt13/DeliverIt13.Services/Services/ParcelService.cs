@@ -6,6 +6,7 @@ using DeliverIt13.Data.Models;
 using DeliverIt13.Services.Contracts;
 using DeliverIt13.Services.Models;
 using DeliverIt13.Services.Models.ParcelDTOs;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeliverIt13.Services
@@ -136,6 +137,39 @@ namespace DeliverIt13.Services
             this.dbContext.SaveChanges();
 
             return parcelDTO;
+        }
+
+        public List<ParcelEmployeeDTO> GetAllFiltered(ParcelFilterDto filter)
+        {
+            var data = this.dbContext
+                .Parcels
+                .Include(p => p.CustomerId)
+                .Include(p => p.WarehouseId)
+                .AsQueryable();
+
+            if (filter.Weight.HasValue)
+            {
+                data = data.Where(p => p.Weight == filter.Weight);
+            }
+
+            if (!string.IsNullOrEmpty(filter.Customer))
+            {
+                data = data.Where(p => p.Customer.FirstName.Contains(filter.Customer));
+            }
+
+            var parcels = data.ToList();
+            if (parcels == null)
+            {
+                throw new NullReferenceException("No parcels found.");
+            }
+            var parcelDTOs = new List<ParcelEmployeeDTO>();
+            foreach (var parcel in parcels)
+            {
+                var newDTO = new ParcelEmployeeDTO(parcel);
+                parcelDTOs.Add(newDTO);
+            }
+
+            return parcelDTOs;
         }
     }
 }

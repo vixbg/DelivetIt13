@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using DeliverIt13.Data.Enums;
 using DeliverIt13.Services.Contracts;
 using DeliverIt13.Services.Models;
@@ -41,7 +42,7 @@ namespace DeliverIt13.Web.Controllers
         }
 
         [HttpGet("")]
-        public IActionResult GetAll([FromHeader] string credentials)
+        public IActionResult GetAll([FromHeader] string credentials, [FromQuery] string sort, [FromQuery] string and)
         {
             try
             {
@@ -51,6 +52,42 @@ namespace DeliverIt13.Web.Controllers
                     return Unauthorized(credentials);
                 }
                 var parcels = this.parcelService.GetAll();
+                var orderedParcels = sort switch
+                {
+                    "weight" => parcels.OrderBy(p => p.Weight),
+                    // NapProp -> Shipment -> ORderBy -> Shipment.ArrivalDate
+                    _ => parcels.OrderBy(p => p.ParcelId)
+                };
+
+                if (!string.IsNullOrEmpty(and))
+                {
+                    orderedParcels = and switch
+                    {
+                        "weight" => orderedParcels.ThenBy(p => p.Weight),
+                        // TODO: NavProp
+                        _ => orderedParcels.ThenBy(p => p.ParcelId)
+                    };
+                }
+                
+                return Ok(orderedParcels);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost("filter")]
+        public IActionResult GetAllFiltered([FromHeader] string credentials, [FromBody] ParcelFilterDto filter)
+        {
+            try
+            {
+                var user = this.authHelper.TryGetUser(credentials);
+                if (user.Type != UserType.Employee)
+                {
+                    return Unauthorized(credentials);
+                }
+                var parcels = this.parcelService.GetAllFiltered(filter);
                 return Ok(parcels);
             }
             catch (Exception e)
