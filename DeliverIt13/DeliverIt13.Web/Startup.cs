@@ -35,6 +35,7 @@ namespace DeliverIt13.Web
             services.AddScoped<IShipmentService, ShipmentService>();
             services.AddScoped<IAuthHelper, AuthHelper>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICustomerService, CustomerService>();
 
         }
 

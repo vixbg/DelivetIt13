@@ -93,6 +93,13 @@ namespace DeliverIt13.Services
             return shipmentsDTOs;
         }
 
+        public int GetCount()
+        {
+            var shipments = this.dbContext.Shipments.ToList();
+
+            return shipments.Count;
+        }
+
         public ShipmentPublicDTO GetStatus(int id)
         {
             var shipment = this.dbContext.Shipments.FirstOrDefault(sh => sh.ShipmentId == id);

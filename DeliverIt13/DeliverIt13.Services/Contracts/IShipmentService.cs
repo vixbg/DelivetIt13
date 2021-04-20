@@ -12,6 +12,7 @@ namespace DeliverIt13.Services.Contracts
         ShipmentDTO GetNextToArrive();
 
         List<ShipmentDTO> GetAll();
+        int GetCount();
 
         ShipmentDTO Create(ShipmentDTO shipment);
 
