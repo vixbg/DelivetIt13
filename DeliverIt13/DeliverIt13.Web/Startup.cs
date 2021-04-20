@@ -34,9 +34,13 @@ namespace DeliverIt13.Web
             
             services.AddDbContext<DeliverItContext>(options => options.UseSqlServer(_configuration.GetConnectionString("EntityString")));
 
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+
+
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<ICountryService, CountryService>();
-            services.AddScoped<IPublicService, PublicService>();
             services.AddScoped<IWarehouseService, WarehouseService>();
             services.AddScoped<IShipmentService, ShipmentService>();
             services.AddScoped<IAuthHelper, AuthHelper>();

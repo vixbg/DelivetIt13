@@ -7,7 +7,7 @@ namespace DeliverIt13.Services.Contracts
     public interface IPublicService
     {
         CustomerPublicDTO GetCustCount();
-        List<WarehouseDTO> GetWarehouses();
+        List<WarehouseGetDTO> GetWarehouses();
         UserPublicDTO Register(UserPublicDTO user);
 
     }

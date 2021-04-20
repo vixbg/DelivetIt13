@@ -4,10 +4,10 @@ using DeliverIt13.Data.Models;
 
 namespace DeliverIt13.Services.Models
 {
-    public class WarehouseDTO
+    public class WarehouseGetDTO
     {
 
-        public WarehouseDTO(Warehouse warehouse)
+        public WarehouseGetDTO(Warehouse warehouse)
         {
             this.Country = warehouse.City.Country.Name;
             this.City = warehouse.City.Name;

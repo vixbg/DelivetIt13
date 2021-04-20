@@ -55,7 +55,7 @@ namespace DeliverIt13.Web.Controllers
         }
 
         [HttpPost("")]
-        public IActionResult Post([FromBody] WarehouseDTO warehouse, [FromHeader] string credentials)
+        public IActionResult Post([FromBody] WarehouseCreateDTO warehouse, [FromHeader] string credentials)
         {
 
             try
