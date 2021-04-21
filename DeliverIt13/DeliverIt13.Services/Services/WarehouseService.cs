@@ -13,28 +13,32 @@ namespace DeliverIt13.Services
     public class WarehouseService : IWarehouseService
     {
         private readonly DeliverItContext dbContext;
+
         public WarehouseService(DeliverItContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public WarehouseDTO Get(int id)
+        public WarehouseGetDTO Get(int id)
         {
             if (id == null)
             {
                 throw new NullReferenceException("ID cannot be Null or Empty.");
 
             }
-            var warehouse = this.dbContext.Warehouses.FirstOrDefault(w => w.WarehouseId == id);
+            var warehouse = this.dbContext.Warehouses
+                .Include(w => w.City)
+                .ThenInclude(c => c.Country)
+                .FirstOrDefault(w => w.WarehouseId == id);
             if (warehouse == null)
             {
                 throw new NullReferenceException("No warehouse found with this ID.");
             }
-            var newDTO = new WarehouseDTO(warehouse);
+            var newDTO = new WarehouseGetDTO(warehouse);
             return newDTO;
         }
 
-        public List<WarehousePublicDTO> GetAll()
+        public List<WarehousePublicDTO> GetAllPublic()
         {
             var warehouses = this.dbContext
                 .Warehouses
@@ -56,15 +60,37 @@ namespace DeliverIt13.Services
 
             return warehouseDTOs;
         }
+
+        public List<WarehouseGetDTO> GetAll()
+        {
+            var warehouses = this.dbContext
+                .Warehouses
+                .Include(w => w.City)
+                .ThenInclude(c => c.Country)
+                .ToList();
+
+            if (warehouses == null)
+            {
+                throw new NullReferenceException("No warehouses found.");
+            }
+
+            var warehouseDTOs = new List<WarehouseGetDTO>();
+            foreach (var warehouse in warehouses)
+            {
+                var newDTO = new WarehouseGetDTO(warehouse);
+                warehouseDTOs.Add(newDTO);
+            }
+
+            return warehouseDTOs;
+        }
         
-        public WarehouseDTO Create(WarehouseDTO warehouse)
+        public WarehouseCreateDTO Create(WarehouseCreateDTO warehouse)
         {
             if (warehouse == null)
             {
                 throw new NullReferenceException("Input Warehouse is Empty or Null.");
             }
             var newWarehouse = new Warehouse();
-            newWarehouse.WarehouseId = warehouse.WarehouseId;
             newWarehouse.Type = warehouse.WarehouseType;
             newWarehouse.CityId = warehouse.CityId;
             newWarehouse.Street = warehouse.Street;
@@ -111,7 +137,6 @@ namespace DeliverIt13.Services
             warehouse.CityId = warehouseDTO.CityId;
             warehouse.Street = warehouseDTO.Street;
             warehouse.Type = warehouseDTO.WarehouseType;
-            this.dbContext.Warehouses.Update(warehouse);
             this.dbContext.SaveChanges();
 
             return warehouseDTO;

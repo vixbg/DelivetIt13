@@ -1,10 +1,9 @@
-﻿using DeliverIt13.Services.Contracts;
+﻿using System;
+using DeliverIt13.Services.Contracts;
 using DeliverIt13.Services.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using DeliverIt13.Data;
 using DeliverIt13.Data.Enums;
-using DeliverIt13.Data.Models;
+using DeliverIt13.Web.Helpers;
 
 namespace DeliverIt13.Web.Controllers
 {
@@ -13,51 +12,52 @@ namespace DeliverIt13.Web.Controllers
     public class CountriesController : ControllerBase
     {
         private readonly ICountryService countryService;
+        private readonly IAuthHelper authHelper;
 
-        public CountriesController(ICountryService countryService)
+        public CountriesController(ICountryService countryService,IAuthHelper authHelper)
         {
             this.countryService = countryService;
+            this.authHelper = authHelper;
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult Get(int id,[FromHeader] string credentials)
         {
-            CountryDTO country = this.countryService.Get(id);
-            return Ok(country);
+            try
+            {
+                var user = this.authHelper.TryGetUser(credentials);
+                if (user.Type != UserType.Employee)
+                {
+                    return Unauthorized(credentials);
+                }
+                CountryDTO country = this.countryService.Get(id);
+                return Ok(country);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
         
         [HttpGet("")]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromHeader] string credentials)
         {
-            var countries = this.countryService.GetAll();
-            return Ok(countries);
+            try
+            {
+                var user = this.authHelper.TryGetUser(credentials);
+                if (user.Type != UserType.Employee)
+                {
+                    return Unauthorized(credentials);
+                }
+                var countries = this.countryService.GetAll();
+                return Ok(countries);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
 
-
-
-        //[HttpPost()]
-        //public IActionResult Post([FromBody] CustomerCreateDto dto)
-        //{
-        //    var customer = new Customer()
-        //    {
-        //        CityId = 1,
-        //        FirstName =  dto.FirstName, //"Ivan",
-        //        LastName = dto.LastName, // "Ivanov",
-        //        Street = dto.Stret, // "Ivanova str 1",
-        //        User = new User()
-        //        {
-        //            Type = UserType.Customer,
-        //            Email = dto.Email, // "ivan@yahoo.com",
-        //            Password = dto.Password // "asdf"
-        //        }
-        //    };
-
-        //    var db = new DeliverItContext();
-        //    db.Customers.Add(customer);
-        //    db.SaveChanges();
-        //}
-
-        
     }
 }

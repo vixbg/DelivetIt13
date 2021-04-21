@@ -52,6 +52,7 @@ namespace DeliverIt13.Services
         {
             var shipment = this.dbContext.Shipments.FirstOrDefault(sh => sh.ShipmentId == id);
 
+
             if (shipment == null)
             {
                 throw new NullReferenceException("No shipment found with this ID.");

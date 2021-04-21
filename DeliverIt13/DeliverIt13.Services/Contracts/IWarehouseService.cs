@@ -6,9 +6,10 @@ namespace DeliverIt13.Services.Contracts
 {
     public interface IWarehouseService
     {
-        WarehouseDTO Get(int id);
-        List<WarehousePublicDTO> GetAll();
-        WarehouseDTO Create(WarehouseDTO warehouse);
+        WarehouseGetDTO Get(int id);
+        List<WarehouseGetDTO> GetAll();
+        List<WarehousePublicDTO> GetAllPublic();
+        WarehouseCreateDTO Create(WarehouseCreateDTO warehouse);
         void Delete(int id);
         WarehouseUpdateDTO Update(WarehouseUpdateDTO warehouseDTO);
 
