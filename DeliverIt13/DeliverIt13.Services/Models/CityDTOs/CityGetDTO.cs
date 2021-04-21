@@ -2,9 +2,9 @@
 
 namespace DeliverIt13.Services.Models
 {
-    public class CityDTO
+    public class CityGetDTO
     {
-        public CityDTO(City city)
+        public CityGetDTO(City city)
         {
             this.Name = city.Name;
             this.CityId = city.CityId;

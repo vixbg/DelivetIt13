@@ -7,13 +7,14 @@ namespace DeliverIt13.Services.Contracts
 {
     public interface IShipmentService
     {
-        ShipmentPublicDTO GetStatus(int id);
+        ShipmentGetDTO GetStatus(int id);
 
-        ShipmentDTO GetNextToArrive();
+        ShipmentCreateDTO GetNextToArrive();
 
-        List<ShipmentDTO> GetAll();
+        List<ShipmentCreateDTO> GetAll();
+        int GetCount();
 
-        ShipmentDTO Create(ShipmentDTO shipment);
+        ShipmentCreateDTO Create(ShipmentCreateDTO shipment);
 
         bool Delete(int id);
 

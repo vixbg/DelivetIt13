@@ -12,9 +12,11 @@ namespace DeliverIt13.Services.Models
             this.Email = user.Email;
         }
         public string Email { get; set; }
-        
-        public UserType Type { get; set; }     
-       
+
+        public UserType Type { get; set; }
+
         public string Password { get; set; }
+
     }
+
 }

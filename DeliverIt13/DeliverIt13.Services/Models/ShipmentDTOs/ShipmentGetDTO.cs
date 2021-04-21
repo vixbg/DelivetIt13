@@ -6,9 +6,9 @@ using System.Text;
 
 namespace DeliverIt13.Services.Models.ShipmentDTOs
 {
-    public class ShipmentPublicDTO
+    public class ShipmentGetDTO
     {
-        public ShipmentPublicDTO(Shipment shipment)
+        public ShipmentGetDTO(Shipment shipment)
         {
             this.Status = shipment.Status;
         }
