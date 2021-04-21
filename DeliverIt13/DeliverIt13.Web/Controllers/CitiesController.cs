@@ -30,7 +30,7 @@ namespace DeliverIt13.Web.Controllers
                 {
                     return Unauthorized(credentials);
                 }
-                CityDTO city = this.cityService.Get(id);
+                CityGetDTO city = this.cityService.Get(id);
                 return Ok(city);
             }
             catch (Exception e)
