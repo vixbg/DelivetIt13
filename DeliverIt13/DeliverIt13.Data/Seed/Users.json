@@ -1,37 +1,32 @@
 ﻿[
   {
     "UserId": "1",
-    "Email": "gparkman0@posterous.com",
     "Password": "7ECDObj1u",
     "email": "lcoolbear0@twitter.com",
     "Type": 0
   },
   {
     "UserId": "2",
-    "Email": "cmunday1@cmu.edu",
     "Password": "BqgNUUHWQx9",
     "email": "wlavalle1@businessweek.com",
     "Type": 0
   },
   {
     "UserId": 3,
-    "Email": "roldall2@mashable.com",
     "Password": "oQf5QcRUod",
-    "email": "alyptrade2@hc360.com",
+    "email": "lkeave@hc360.com",
     "Type": 1
   },
   {
     "UserId": 4,
-    "Email": "gmiddlewick3@smugmug.com",
     "Password": "u9O7snCZFug",
-    "email": "jwinn3@bloomberg.com",
+    "email": "rmcard@bloomberg.com",
     "Type": 1
   },
   {
     "UserId": 5,
-    "Email": "rargo4@dailymail.co.uk",
     "Password": "QtcWC6",
-    "email": "cmargaritelli4@baidu.com",
+    "email": "sdunsmuir@baidu.com",
     "Type": 1
   }
 ]
