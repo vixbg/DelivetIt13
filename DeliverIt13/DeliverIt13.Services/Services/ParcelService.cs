@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DeliverIt13.Data;
+using DeliverIt13.Data.Enums;
 using DeliverIt13.Data.Models;
 using DeliverIt13.Services.Contracts;
 using DeliverIt13.Services.Models;
@@ -65,6 +66,7 @@ namespace DeliverIt13.Services
                 .Parcels
                 .Include(p => p.CustomerId)
                 .Include(p => p.WarehouseId)
+                .Include(p => p.ShipmentId)
                 .ToList();
             if (parcels == null)
             {
@@ -91,6 +93,7 @@ namespace DeliverIt13.Services
             newParcel.CustomerId  = parcel.CustomerId;
             newParcel.Weight  = parcel.Weight;
             newParcel.WarehouseId  = parcel.WarehouseId;
+            newParcel.ShipmentId  = parcel.ShipmentId;
             
             this.dbContext.Parcels.Add(newParcel);
             this.dbContext.SaveChanges();
@@ -134,12 +137,13 @@ namespace DeliverIt13.Services
             parcel.WarehouseId = parcelDTO.WarehouseId;
             parcel.CustomerId = parcelDTO.CustomerId;
             parcel.Weight = parcelDTO.Weight;
+            parcel.ShipmentId = parcelDTO.ShipmentId;
             this.dbContext.SaveChanges();
 
             return parcelDTO;
         }
 
-        public List<ParcelEmployeeDTO> GetAllFiltered(ParcelFilterDto filter)
+        public List<ParcelEmployeeDTO> GetAllFiltered(ParcelFilterDTO filter)
         {
             var data = this.dbContext
                 .Parcels
@@ -155,6 +159,16 @@ namespace DeliverIt13.Services
             if (!string.IsNullOrEmpty(filter.Customer))
             {
                 data = data.Where(p => p.Customer.FirstName.Contains(filter.Customer));
+            }
+
+            if (!string.IsNullOrEmpty(filter.Warehouse))
+            {
+                data = data.Where(p => p.Warehouse.City.Name.Contains(filter.Warehouse));
+            }
+
+            if (filter.Category != null)
+            {
+                data = data.Where(p => p.Category.Equals(filter.Category));
             }
 
             var parcels = data.ToList();

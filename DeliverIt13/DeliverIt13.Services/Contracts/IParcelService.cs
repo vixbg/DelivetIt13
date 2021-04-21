@@ -13,6 +13,6 @@ namespace DeliverIt13.Services.Contracts
         ParcelCreateDTO Create(ParcelCreateDTO parcel);
         void Delete(int id);
         ParcelCreateDTO Update(ParcelCreateDTO parcelDTO);
-        List<ParcelEmployeeDTO> GetAllFiltered(ParcelFilterDto filter);
+        List<ParcelEmployeeDTO> GetAllFiltered(ParcelFilterDTO filter);
     }
 }

@@ -15,7 +15,6 @@ namespace DeliverIt13.Services.Models.ParcelDTOs
             this.ShipmentId = parcel.ShipmentId;
         }
 
-        //Check Rumi for What is needed in Customer.
         public int ParcelId { get; set; }
         public int CustomerId { get; set; }
         public int WarehouseId { get; set; }

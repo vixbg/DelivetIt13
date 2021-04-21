@@ -56,7 +56,10 @@ namespace DeliverIt13.Web.Controllers
                 var orderedParcels = sort switch
                 {
                     "weight" => parcels.OrderBy(p => p.Weight),
-                    // NapProp -> Shipment -> ORderBy -> Shipment.ArrivalDate
+                    "date" => parcels.OrderBy(p => p.Shipment.ArrivalDate),
+                    "category" => parcels.OrderBy(p => p.Category),
+                    "warehouse" => parcels.OrderBy(p => p.Warehouse.City.Name),
+                    "shipment" => parcels.OrderBy(p => p.Shipment.Status),
                     _ => parcels.OrderBy(p => p.ParcelId)
                 };
 
@@ -65,7 +68,10 @@ namespace DeliverIt13.Web.Controllers
                     orderedParcels = and switch
                     {
                         "weight" => orderedParcels.ThenBy(p => p.Weight),
-                        // TODO: NavProp
+                        "date" => orderedParcels.ThenBy(p => p.Shipment.ArrivalDate),
+                        "category" => orderedParcels.ThenBy(p => p.Category),
+                        "warehouse" => orderedParcels.ThenBy(p => p.Warehouse.City.Name),
+                        "shipment" => orderedParcels.ThenBy(p => p.Shipment.Status),
                         _ => orderedParcels.ThenBy(p => p.ParcelId)
                     };
                 }
@@ -79,7 +85,7 @@ namespace DeliverIt13.Web.Controllers
         }
 
         [HttpPost("filter")]
-        public IActionResult GetAllFiltered([FromHeader] string credentials, [FromBody] ParcelFilterDto filter)
+        public IActionResult GetAllFiltered([FromHeader] string credentials, [FromBody] ParcelFilterDTO filter)
         {
             try
             {
