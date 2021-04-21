@@ -26,13 +26,13 @@ namespace DeliverIt13.Services
         {
             if (id == null)
             {
-                throw new NullReferenceException("ID cannot be Null or Empty.");
+                throw new Exception("ID cannot be Null or Empty.");
 
             }
             var parcel = this.dbContext.Parcels.FirstOrDefault(p => p.ParcelId == id);
             if (parcel == null)
             {
-                throw new NullReferenceException("No parcel found with this ID.");
+                throw new Exception("No parcel found with this ID.");
             }
             var newDTO = new ParcelCustomerDTO(parcel);
             return newDTO;
@@ -48,7 +48,7 @@ namespace DeliverIt13.Services
                 .ToList();
             if (parcels == null)
             {
-                throw new NullReferenceException("No parcels found.");
+                throw new Exception("No parcels found.");
             }
             var parcelDTOs = new List<ParcelCustomerDTO>();
             foreach (var parcel in parcels)
@@ -70,7 +70,7 @@ namespace DeliverIt13.Services
                 .ToList();
             if (parcels == null)
             {
-                throw new NullReferenceException("No parcels found.");
+                throw new Exception("No parcels found.");
             }
             var parcelDTOs = new List<ParcelEmployeeDTO>();
             foreach (var parcel in parcels)
@@ -86,7 +86,7 @@ namespace DeliverIt13.Services
         {
             if (parcel == null)
             {
-                throw new NullReferenceException("Input Parcel is Empty or Null.");
+                throw new Exception("Input Parcel is Empty or Null.");
             }
             var newParcel = new Parcel();
             newParcel.Category  = parcel.Category;
@@ -124,13 +124,13 @@ namespace DeliverIt13.Services
         {
             if (parcelDTO == null)
             {
-                throw new NullReferenceException("Input Parcel is Empty or Null.");
+                throw new Exception("Input Parcel is Empty or Null.");
             }
             var parcel = this.dbContext.Parcels.FirstOrDefault(p => p.ParcelId == parcelDTO.ParcelId);
 
             if (parcel == null)
             {
-                throw new NullReferenceException("No parcels found with this ID.");
+                throw new Exception("No parcels found with this ID.");
             }
 
             parcel.Category = parcelDTO.Category;
@@ -174,7 +174,7 @@ namespace DeliverIt13.Services
             var parcels = data.ToList();
             if (parcels == null)
             {
-                throw new NullReferenceException("No parcels found.");
+                throw new Exception("No parcels found.");
             }
             var parcelDTOs = new List<ParcelEmployeeDTO>();
             foreach (var parcel in parcels)
