@@ -158,31 +158,57 @@ namespace DeliverIt13.Services.Services
             return customersByLastName;
         }
 
-        public List<CustomerGetDTO> GetAllFiltered(CustomerFilterDTO customer)
+        public List<CustomerGetDTO> GetAllBySearch(string search, string searchby)
         {
-            var customers = this.GetAll();
+            var customers = this.dbContext.Customers.Include(c => c.User).ToList();
+            //var data = this.dbContext.Customers.Include(c => c.User).AsQueryable();
 
-            if (!string.IsNullOrEmpty(customer.Email))
+            if (string.IsNullOrEmpty(search))
             {
-                customers = customers.Where(c => c.Email.Contains(c.Email)).ToList();
+                return customers.Select(c => new CustomerGetDTO(c)).ToList();
             }
 
-            if (!string.IsNullOrEmpty(customer.FirstName))
+            if (searchby == "firstname")
             {
-                customers = customers.Where(c => c.FirstName.Equals(c.FirstName)).ToList();
+                customers = customers.Where(c => c.FirstName.Equals(search, StringComparison.OrdinalIgnoreCase)).ToList() ?? throw new Exception("No matches found.");
             }
 
-            if (!string.IsNullOrEmpty(customer.LastName))
+            if (searchby == "lastname")
             {
-                customers = customers.Where(c => c.LastName.Equals(c.LastName)).ToList();
-            }            
-
-            if (customers == null)
-            {
-                throw new ArgumentException("No users found");
+                customers = customers.Where(c => c.LastName.Equals(search, StringComparison.OrdinalIgnoreCase)).ToList() ?? throw new Exception("No matches found.");
             }
 
-            return customers;
+            if (searchby == "email")
+            {
+                customers = customers.Where(c => c.User.Email.Contains(search, StringComparison.OrdinalIgnoreCase)).ToList() ?? throw new Exception("No matches found."); 
+            }
+
+
+            //if (!string.IsNullOrEmpty(search.FirstName))
+            //{
+            //    data = data.Where(c => c.FirstName.Equals(search.FirstName));
+            //}
+
+            //if (!string.IsNullOrEmpty(search.LastName))
+            //{
+            //    data = data.Where(c => c.LastName.Equals(search.LastName));
+            //}
+
+            //if (!string.IsNullOrEmpty(search.Email))
+            //{
+            //    data = data.Where(c => c.User.Email.Contains(search.Email));
+            //}
+
+            //var customers = data.ToList();
+
+            //if (customers == null)
+            //{
+            //    throw new ArgumentException("No users found.");
+            //}
+
+            var customersDTO = customers.Select(c => new CustomerGetDTO(c)).ToList();
+
+            return customersDTO;
         }
 
         public CustomerUpdateDTO Update(int id, CustomerUpdateDTO customerDTO)

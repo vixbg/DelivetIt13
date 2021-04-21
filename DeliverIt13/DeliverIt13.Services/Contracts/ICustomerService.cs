@@ -13,7 +13,7 @@ namespace DeliverIt13.Services.Contracts
 
         List<CustomerGetDTO> GetByLastName(string lastName);
 
-        List<CustomerGetDTO> GetAllFiltered(CustomerFilterDTO customer);
+        List<CustomerGetDTO> GetAllBySearch(string search, string searchby);
 
         List<CustomerGetDTO> GetAll();
 

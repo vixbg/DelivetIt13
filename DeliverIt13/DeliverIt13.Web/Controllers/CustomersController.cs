@@ -31,14 +31,17 @@ namespace DeliverIt13.Web.Controllers
             this.authHelper = authHelper;
         }
 
-        //[HttpGet("filter")]
-        public IActionResult GetAllFiltered([FromHeader] string credentials, [FromQuery] CustomerFilterDTO filter)
+        // api/customer?search=
+        [HttpGet("")]
+        public IActionResult GetAllSearch([FromQuery] string search, string searchby)
         {
             try
             {
-                var user = this.authHelper.TryGetUser(credentials);
+                //[FromHeader] string credentials,
+                //var user = this.authHelper.TryGetUser(credentials);
 
-                var customers = this.customerService.GetAllFiltered(filter);
+                var customers = this.customerService.GetAllBySearch(search, searchby);
+
                 return Ok(customers);
             }
             catch (Exception e)
