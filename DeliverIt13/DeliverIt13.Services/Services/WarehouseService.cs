@@ -38,7 +38,7 @@ namespace DeliverIt13.Services
             return newDTO;
         }
 
-        public List<WarehousePublicDTO> GetAll()
+        public List<WarehousePublicDTO> GetAllPublic()
         {
             var warehouses = this.dbContext
                 .Warehouses
@@ -55,6 +55,29 @@ namespace DeliverIt13.Services
             foreach (var warehouse in warehouses)
             {
                 var newDTO = new WarehousePublicDTO(warehouse);
+                warehouseDTOs.Add(newDTO);
+            }
+
+            return warehouseDTOs;
+        }
+
+        public List<WarehouseGetDTO> GetAll()
+        {
+            var warehouses = this.dbContext
+                .Warehouses
+                .Include(w => w.City)
+                .ThenInclude(c => c.Country)
+                .ToList();
+
+            if (warehouses == null)
+            {
+                throw new NullReferenceException("No warehouses found.");
+            }
+
+            var warehouseDTOs = new List<WarehouseGetDTO>();
+            foreach (var warehouse in warehouses)
+            {
+                var newDTO = new WarehouseGetDTO(warehouse);
                 warehouseDTOs.Add(newDTO);
             }
 

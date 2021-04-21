@@ -9,9 +9,7 @@ namespace DeliverIt13.Services.Models
 
         public WarehouseUpdateDTO(Warehouse warehouse)
         {
-            this.Street = warehouse.Street;
-            this.WarehouseType = warehouse.Type;
-            this.WarehouseId = warehouse.WarehouseId;
+            
         }
         public int WarehouseId { get; set; }
         public int CityId { get; set; }

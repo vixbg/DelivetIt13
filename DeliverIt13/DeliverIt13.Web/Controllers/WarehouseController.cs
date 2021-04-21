@@ -29,7 +29,7 @@ namespace DeliverIt13.Web.Controllers
                 var user = this.authHelper.TryGetUser(credentials);
                 if (user.Type != UserType.Employee)
                 {
-                    return Unauthorized(credentials);
+                    return Unauthorized($"Unauthorized Username/Email: {credentials}");
                 }
                 var warehouse = this.warehouseService.Get(id);
                 return Ok(warehouse);
@@ -40,12 +40,31 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
-        [HttpGet("")]
-        public IActionResult GetAll()
+        [HttpGet("internal")]
+        public IActionResult GetAll([FromHeader] string credentials)
         {
             try
             {
+                var user = this.authHelper.TryGetUser(credentials);
+                if (user.Type != UserType.Employee)
+                {
+                    return Unauthorized($"Unauthorized Username/Email: {credentials}");
+                }
                 var warehouses = this.warehouseService.GetAll();
+                return Ok(warehouses);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("")]
+        public IActionResult GetAllPublic()
+        {
+            try
+            {
+                var warehouses = this.warehouseService.GetAllPublic();
                 return Ok(warehouses);
             }
             catch (Exception e)
@@ -63,7 +82,7 @@ namespace DeliverIt13.Web.Controllers
                 var user = this.authHelper.TryGetUser(credentials);
                 if (user.Type != UserType.Employee)
                 {
-                    return Unauthorized(credentials);
+                    return Unauthorized($"Unauthorized Username/Email: {credentials}");
                 }
                 this.warehouseService.Create(warehouse);
                 return Created("Warehouse Created", warehouse);
@@ -82,7 +101,7 @@ namespace DeliverIt13.Web.Controllers
                 var user = this.authHelper.TryGetUser(credentials);
                 if (user.Type != UserType.Employee)
                 {
-                    return Unauthorized(credentials);
+                    return Unauthorized($"Unauthorized Username/Email: {credentials}");
                 }
                 this.warehouseService.Delete(id);
                 return NoContent();
@@ -101,7 +120,7 @@ namespace DeliverIt13.Web.Controllers
                 var user = this.authHelper.TryGetUser(credentials);
                 if (user.Type != UserType.Employee)
                 {
-                    return Unauthorized(credentials);
+                    return Unauthorized($"Unauthorized Username/Email: {credentials}");
                 }
                 var updatedWarehouse = this.warehouseService.Update(warehouse);
                 return Ok(updatedWarehouse);

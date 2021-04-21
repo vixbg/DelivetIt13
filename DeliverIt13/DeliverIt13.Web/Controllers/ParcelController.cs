@@ -41,6 +41,7 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        // api/parcel?sort=weight&and=shipment
         [HttpGet("")]
         public IActionResult GetAll([FromHeader] string credentials, [FromQuery] string sort, [FromQuery] string and)
         {

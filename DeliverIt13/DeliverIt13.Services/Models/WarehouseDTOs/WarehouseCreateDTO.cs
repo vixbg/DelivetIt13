@@ -7,12 +7,9 @@ namespace DeliverIt13.Services.Models
     public class WarehouseCreateDTO
     {
 
-        public WarehouseCreateDTO(Warehouse warehouse)
+        public WarehouseCreateDTO()
         {
-            this.CityId = warehouse.CityId;
-            this.Street = warehouse.Street;
-            this.WarehouseType = warehouse.Type;
-            
+
         }
 
         public int CityId { get; set; }

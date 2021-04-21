@@ -14,13 +14,16 @@ namespace DeliverIt13.Services.Models
             this.Street = warehouse.Street;
             this.WarehouseType = warehouse.Type;
             this.WarehouseId = warehouse.WarehouseId;
+            this.CityId = warehouse.CityId;
+            this.WarehouseTypeString = Enum.GetName(typeof(WarehouseType), warehouse.Type);
         }
         public int WarehouseId { get; set; }
         public string Country { get; set; }
-        public string City { get; set; }
         public int CityId { get; set; }
+        public string City { get; set; }
         public string Street { get; set; }
         public WarehouseType WarehouseType { get; set; }
+        public string WarehouseTypeString { get; set; }
         
     }
 }
