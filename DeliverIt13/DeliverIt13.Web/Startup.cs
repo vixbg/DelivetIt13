@@ -14,6 +14,7 @@ using DeliverIt13.Web.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
+using DeliverIt13.Services.Services;
 
 namespace DeliverIt13.Web
 {
@@ -45,6 +46,7 @@ namespace DeliverIt13.Web
             services.AddScoped<IShipmentService, ShipmentService>();
             services.AddScoped<IAuthHelper, AuthHelper>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IParcelService, ParcelService>();
 
             services.AddSwaggerGen(c => c.ResolveConflictingActions(a => a.First()));

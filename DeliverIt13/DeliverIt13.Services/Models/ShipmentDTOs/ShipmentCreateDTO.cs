@@ -6,9 +6,9 @@ using System.Text;
 
 namespace DeliverIt13.Services.Models.ShipmentDTOs
 {
-    public class ShipmentDTO
+    public class ShipmentCreateDTO
     {
-        public ShipmentDTO(Shipment shipment)
+        public ShipmentCreateDTO(Shipment shipment)
         {
             this.ShipmentId = shipment.ShipmentId;
             this.DepartureDate = shipment.DepartureDate;

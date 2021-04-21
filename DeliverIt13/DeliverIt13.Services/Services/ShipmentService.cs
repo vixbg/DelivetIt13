@@ -25,7 +25,7 @@ namespace DeliverIt13.Services
             this.dbContext = dbContext;
         }
 
-        public ShipmentDTO Create(ShipmentDTO shipment)
+        public ShipmentCreateDTO Create(ShipmentCreateDTO shipment)
         {
             if (shipment == null)
             {
@@ -64,7 +64,7 @@ namespace DeliverIt13.Services
             return true;
         }
 
-        public ShipmentDTO GetNextToArrive()
+        public ShipmentCreateDTO GetNextToArrive()
         {
             DateTime todaysDate = DateTime.Today;
 
@@ -80,21 +80,28 @@ namespace DeliverIt13.Services
             return nextShipment;
         }
 
-        public List<ShipmentDTO> GetAll()
+        public List<ShipmentCreateDTO> GetAll()
         {
             var shipments = this.dbContext.Shipments.ToList();
 
-            var shipmentsDTOs = new List<ShipmentDTO>();
+            var shipmentsDTOs = new List<ShipmentCreateDTO>();
 
             foreach (var shipment in shipments)
             {
-                shipmentsDTOs.Add(new ShipmentDTO(shipment));
+                shipmentsDTOs.Add(new ShipmentCreateDTO(shipment));
             }
 
             return shipmentsDTOs;
         }
 
-        public ShipmentPublicDTO GetStatus(int id)
+        public int GetCount()
+        {
+            var shipments = this.dbContext.Shipments.ToList();
+
+            return shipments.Count;
+        }
+
+        public ShipmentGetDTO GetStatus(int id)
         {
             var shipment = this.dbContext.Shipments.FirstOrDefault(sh => sh.ShipmentId == id);
 
@@ -103,7 +110,7 @@ namespace DeliverIt13.Services
                 throw new ArgumentException("No shipment found with this ID.");
             }
 
-            var shipmentDTO = new ShipmentPublicDTO(shipment);
+            var shipmentDTO = new ShipmentGetDTO(shipment);
 
             return shipmentDTO;
         }
