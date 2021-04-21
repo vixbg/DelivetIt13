@@ -13,8 +13,4 @@
     <ProjectReference Include="..\DeliverIt13.Data\DeliverIt13.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\CustomerDTOs\" />
-  </ItemGroup>
-
 </Project>

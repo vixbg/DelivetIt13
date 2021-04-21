@@ -1,6 +1,6 @@
 ﻿using DeliverIt13.Data.Enums;
 using DeliverIt13.Services.Contracts;
-using DeliverIt13.Services.Models.ShipmentDTOs;
+using DeliverIt13.Services.Models.CustomerDTOs;
 using DeliverIt13.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,35 +12,44 @@ namespace DeliverIt13.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ShipmentsController : Controller
+    public class CustomersController : Controller
     {
-        private readonly IShipmentService shipmentService;
+        //crud - done
+        //public - how many customers and post 
+        //search by email
+        //search by first/last name
+        //see incoming parcels
+        //search by multiple criteria ??????????
+        //search all fields - nema shans 
+
+        private readonly ICustomerService customerService;
         private readonly IAuthHelper authHelper;
 
-        public ShipmentsController(IShipmentService shipmentService, IAuthHelper authHelper)
+        public CustomersController(ICustomerService customerService, IAuthHelper authHelper)
         {
-            this.shipmentService = shipmentService;
+            this.customerService = customerService;
             this.authHelper = authHelper;
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetStatus([FromHeader] string credentials, int id)
+        //[HttpGet("filter")]
+        public IActionResult GetAllFiltered([FromHeader] string credentials, [FromQuery] CustomerFilterDTO filter)
         {
             try
             {
                 var user = this.authHelper.TryGetUser(credentials);
 
-                var shipment = this.shipmentService.GetStatus(id);
-                return Ok(shipment);
+                var customers = this.customerService.GetAllFiltered(filter);
+                return Ok(customers);
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);                
+                return BadRequest(e.Message);
             }
         }
 
-        [HttpGet("")]
-        public IActionResult GetAll([FromHeader] string credentials)
+
+        [HttpGet("{id}")]
+        public IActionResult Get([FromHeader] string credentials, int id)
         {
             try
             {
@@ -50,7 +59,21 @@ namespace DeliverIt13.Web.Controllers
                     return Unauthorized(credentials);
                 }
 
-                var count = this.shipmentService.GetCount();
+                var customer = this.customerService.Get(id);
+                return Ok(customer);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("all")]
+        public IActionResult GetAll()
+        {
+            try
+            {
+                var count = this.customerService.GetCount();
                 return Ok(count);
             }
             catch (Exception e)
@@ -60,18 +83,12 @@ namespace DeliverIt13.Web.Controllers
         }
 
         [HttpPost("")]
-        public IActionResult Post([FromHeader] string credentials, [FromBody] ShipmentCreateDTO shipment)
+        public IActionResult Post([FromBody] CustomerCreateDTO customer)
         {
             try
             {
-                var user = this.authHelper.TryGetUser(credentials);
-                if (user.Type != UserType.Employee)
-                {
-                    return Unauthorized(credentials);
-                }
-
-                this.shipmentService.Create(shipment);
-                return Created("Shipment created", shipment);
+                this.customerService.Create(customer);
+                return Created("User created", customer);
             }
             catch (Exception e)
             {
@@ -80,18 +97,14 @@ namespace DeliverIt13.Web.Controllers
         }
 
         [HttpPut("")]
-        public IActionResult Put([FromHeader] string credentials, [FromBody] ShipmentUpdateDTO shipment, int id)
+        public IActionResult Put([FromHeader] string credentials, [FromBody] CustomerUpdateDTO customer, int id)
         {
             try
             {
                 var user = this.authHelper.TryGetUser(credentials);
-                if (user.Type != UserType.Employee)
-                {
-                    return Unauthorized(credentials);
-                }
-
-                var updatedShipment = this.shipmentService.Update(id, shipment);
-                return Ok(updatedShipment);
+                
+                var updatedCustomer = this.customerService.Update(id, customer);
+                return Ok(updatedCustomer);
             }
             catch (Exception e)
             {
@@ -110,7 +123,7 @@ namespace DeliverIt13.Web.Controllers
                     return Unauthorized(credentials);
                 }
 
-                this.shipmentService.Delete(id);
+                this.customerService.Delete(id);
                 return NoContent();
             }
             catch (Exception e)

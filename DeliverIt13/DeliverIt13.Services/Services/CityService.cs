@@ -19,7 +19,7 @@ namespace DeliverIt13.Services
             this.dbContext = dbContext;
         }
 
-        public CityDTO Get(int id)
+        public CityGetDTO Get(int id)
         {
             City city = this.dbContext.Cities.FirstOrDefault(c => c.CityId.Equals(id));
 
@@ -28,21 +28,21 @@ namespace DeliverIt13.Services
                 throw new ArgumentException("City was not found!");
             }
 
-            CityDTO cityDTO = new CityDTO(city);
+            CityGetDTO cityDTO = new CityGetDTO(city);
             cityDTO.Name = city.Name;
 
             return cityDTO;
         }
 
-        public List<CityDTO> GetAll()
+        public List<CityGetDTO> GetAll()
         {
             var cities = this.dbContext.Cities.ToList();
 
-            List<CityDTO> citiesDTO = new List<CityDTO>();
+            List<CityGetDTO> citiesDTO = new List<CityGetDTO>();
 
             foreach (var city in cities)
             {
-                CityDTO cityDTO = new CityDTO(city);
+                CityGetDTO cityDTO = new CityGetDTO(city);
                 citiesDTO.Add(cityDTO);
             }
 

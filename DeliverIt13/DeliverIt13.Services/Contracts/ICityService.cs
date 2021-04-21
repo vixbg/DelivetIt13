@@ -7,8 +7,8 @@ namespace DeliverIt13.Services.Contracts
 {
     public interface ICityService
     {
-        CityDTO Get(int id);
+        CityGetDTO Get(int id);
 
-        List<CityDTO> GetAll();
+        List<CityGetDTO> GetAll();
     }
 }
