@@ -28,7 +28,7 @@ namespace DeliverIt13.Web
             using var scope = host.Services.CreateScope();
             using var dbContext = scope.ServiceProvider.GetService<DeliverItContext>();
             
-            //dbContext.Database.Migrate();
+            dbContext.Database.Migrate();
             using var transaction = dbContext.Database.BeginTransaction();
 
             if (!dbContext.Countries.Any() && File.Exists(@"Seed\Countries.json"))

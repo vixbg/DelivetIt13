@@ -10,7 +10,7 @@ namespace DeliverIt13.Services.Contracts
         List<WarehouseGetDTO> GetAll();
         List<WarehousePublicDTO> GetAllPublic();
         WarehouseCreateDTO Create(WarehouseCreateDTO warehouse);
-        void Delete(int id);
+        bool Delete(int id);
         WarehouseUpdateDTO Update(WarehouseUpdateDTO warehouseDTO);
 
 
