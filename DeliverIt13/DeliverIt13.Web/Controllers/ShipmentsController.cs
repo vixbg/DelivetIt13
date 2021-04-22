@@ -23,8 +23,14 @@ namespace DeliverIt13.Web.Controllers
             this.authHelper = authHelper;
         }
 
+        /// <summary>
+        /// Gets the specified shipment.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="id">Id of the Shipment.</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
-        public IActionResult Get(int id,[FromHeader] string credentials)
+        public IActionResult Get([FromHeader] string credentials, int id)
         {
             try
             {
@@ -42,6 +48,11 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all shipments.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <returns></returns>
         [HttpGet("")]
         public IActionResult GetAll([FromHeader] string credentials)
         {
@@ -61,6 +72,12 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates the specified shipment.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="shipment">The shipment that will be created.</param>
+        /// <returns></returns>
         [HttpPost("")]
         public IActionResult Post([FromHeader] string credentials, [FromBody] ShipmentCreateDTO shipment)
         {
@@ -81,8 +98,14 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes the specified shipment.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="id">Id of the Shipment.</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id, [FromHeader] string credentials)
+        public IActionResult Delete([FromHeader] string credentials,int id)
         {
             try
             {
@@ -101,6 +124,12 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates the specified shipment.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="shipment">The shipment.</param>
+        /// <returns></returns>
         [HttpPut("")]
         public IActionResult Put([FromHeader] string credentials, [FromBody] ShipmentUpdateDTO shipment)
         {
@@ -121,6 +150,12 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the status of a shipment.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee or customer.</param>
+        /// <param name="id">Id of the Shipment.</param>
+        /// <returns></returns>
         [HttpGet("status/{id}")]
         public IActionResult GetStatus([FromHeader] string credentials, int id)
         {
@@ -136,6 +171,12 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the next shipment to arrive at the warehouse.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="warehouseId">The warehouse ID.</param>
+        /// <returns></returns>
         [HttpGet("next/{id}")]
         public IActionResult GetNextToArrive([FromHeader] string credentials, int warehouseId)
         {
@@ -154,9 +195,14 @@ namespace DeliverIt13.Web.Controllers
                 return BadRequest(e.Message);                
             }
         }
-        
-     
-        // api/shipments/byWarehouse/London
+
+
+        /// <summary>
+        /// Gets all shipments by warehouse.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="name">The name of the warehouse.</param>
+        /// <returns></returns>
         [HttpGet("byWarehouse/{name}")]
         public IActionResult GetAllByWarehouse([FromHeader] string credentials, [FromRoute] string name)
         {
@@ -176,7 +222,13 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
-        //TODO--
+        //TODO--Not Done        
+        /// <summary>
+        /// Gets all shipments by customer.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="name">The name of the customer.</param>
+        /// <returns></returns>
         [HttpGet("byCustomer/{name}")]
         public IActionResult GetAllByCustomer([FromHeader] string credentials, [FromRoute] string name)
         {
@@ -196,7 +248,12 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
-        // api/shipmentsOnTheWay/Sofia
+        /// <summary>
+        /// Gets shipments that are on the way to a specific city.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="cityName">Name of the destination city.</param>
+        /// <returns></returns>
         [HttpGet("shipmentsOnTheWay/{cityName}")]
         public IActionResult GetOnTheWay([FromHeader] string credentials, string cityName)
         {

@@ -20,8 +20,14 @@ namespace DeliverIt13.Web.Controllers
             this.authHelper = authHelper;
         }
 
+        /// <summary>
+        /// Gets the specified city.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="id">ID of the City.</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
-        public IActionResult Get(int id,[FromHeader] string credentials)
+        public IActionResult Get([FromHeader] string credentials,int id)
         {
             try
             {
@@ -39,7 +45,11 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Gets all cities.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <returns></returns>
         [HttpGet("")]
         public IActionResult GetAll([FromHeader] string credentials)
         {

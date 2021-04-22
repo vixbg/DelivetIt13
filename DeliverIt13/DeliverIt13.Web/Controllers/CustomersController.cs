@@ -26,7 +26,13 @@ namespace DeliverIt13.Web.Controllers
             this.parcelService = parcelService;
         }
 
-        // api/customer?search=
+        /// <summary>
+        /// Gets all customers with search parameters.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="search">Search string - can be left blank.</param>
+        /// <param name="searchBy">Search by: FirstName, LastName, Email - can be left blank.</param>
+        /// <returns></returns>
         [HttpGet("")]
         public IActionResult GetAllSearch([FromHeader] string credentials,[FromQuery] string search, string searchBy)
         {
@@ -47,6 +53,11 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all parcels for specified customer.
+        /// </summary>
+        /// <param name="credentials">User authentication - customer.</param>
+        /// <returns></returns>
         [HttpGet("parcels")]
         public IActionResult GetAllParcels([FromHeader] string credentials)
         {
@@ -69,7 +80,12 @@ namespace DeliverIt13.Web.Controllers
         }
 
 
-
+        /// <summary>
+        /// Gets the specified customer.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="id">Id of the customer.</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public IActionResult Get([FromHeader] string credentials, int id)
         {
@@ -90,6 +106,11 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all customers - internal for employees.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <returns></returns>
         [HttpGet("all")]
         public IActionResult GetAll([FromHeader] string credentials)
         {
@@ -109,6 +130,12 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a specified customer.
+        /// </summary>
+        /// <param name="credentials">User authentication - customer.</param>
+        /// <param name="customer">The customer that will be created.</param>
+        /// <returns></returns>
         [HttpPost("")]
         public IActionResult Post([FromHeader] string credentials,[FromBody] CustomerCreateDTO customer)
         {
@@ -128,6 +155,12 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates a specified customer.
+        /// </summary>
+        /// <param name="credentials">User authentication - customer.</param>
+        /// <param name="customer">The customer that will be updated.</param>
+        /// <returns></returns>
         [HttpPut("")]
         public IActionResult Put([FromHeader] string credentials, [FromBody] CustomerUpdateDTO customer)
         {
@@ -148,6 +181,13 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Deletes the specified customer.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="id">Id of the customer.</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public IActionResult Delete([FromHeader] string credentials, int id)
         {

@@ -24,8 +24,14 @@ namespace DeliverIt13.Web.Controllers
             this.authHelper = authHelper;
         }
 
+        /// <summary>
+        /// Gets the specified credentials.
+        /// </summary>
+        /// <param name="credentials">The credentials.</param>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
-        public IActionResult Get(int id,[FromHeader] string credentials)
+        public IActionResult Get([FromHeader] string credentials, int id)
         {
             try
             {

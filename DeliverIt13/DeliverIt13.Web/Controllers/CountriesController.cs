@@ -20,8 +20,14 @@ namespace DeliverIt13.Web.Controllers
             this.authHelper = authHelper;
         }
 
+        /// <summary>
+        /// Gets the specified Country.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="id">Id of the Country.</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
-        public IActionResult Get(int id,[FromHeader] string credentials)
+        public IActionResult Get([FromHeader] string credentials,int id)
         {
             try
             {
@@ -38,7 +44,13 @@ namespace DeliverIt13.Web.Controllers
                 return BadRequest(e.Message);
             }
         }
-        
+
+
+        /// <summary>
+        /// Gets all countries.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <returns></returns>
         [HttpGet("")]
         public IActionResult GetAll([FromHeader] string credentials)
         {

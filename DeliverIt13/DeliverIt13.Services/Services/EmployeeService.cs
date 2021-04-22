@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DeliverIt13.Services
 {
-	public class EmployeeService 
+	public class EmployeeService : IEmployeeService
 	{
 		private readonly DeliverItContext dbContext;
 		public EmployeeService(DeliverItContext dbContext)
@@ -19,56 +19,59 @@ namespace DeliverIt13.Services
 			this.dbContext = dbContext;
 		}
 
-        public UserAuthDTO Get(int id)
+        public EmployeeGetDTO Get(int id)
         {
             if (id == null)
             {
                 throw new Exception("ID cannot be Null or Empty.");
 
             }
-            var user = this.dbContext.Users.FirstOrDefault(u => u.UserId == id);
+            var user = this.dbContext.Employees.FirstOrDefault(u => u.UserId == id);
             if (user == null)
             {
-                throw new Exception("No user found with this ID.");
+                throw new Exception("No Employee found with this ID.");
             }
-            var newDTO = new UserAuthDTO(user);
+            var newDTO = new EmployeeGetDTO(user);
             return newDTO;
         }
 
-        public List<UserAuthDTO> GetAll()
+        public List<EmployeeGetDTO> GetAll()
         {
-            var users = this.dbContext
-                .Users
+            var employees = this.dbContext
+                .Employees
+                .Include(e=>e.User)
+                .Include(e=>e.Warehouse)
                 .ToList();
-            if (users == null)
+            if (employees == null)
             {
-                throw new Exception("No users found.");
+                throw new Exception("No employees found.");
             }
-            var userDTOs = new List<UserAuthDTO>();
-            foreach (var user in users)
+            var userDTOs = new List<EmployeeGetDTO>();
+            foreach (var user in employees)
             {
-                var newDTO = new UserAuthDTO(user);
+                var newDTO = new EmployeeGetDTO(user);
                 userDTOs.Add(newDTO);
             }
 
             return userDTOs;
         }
-        public UserCreateDTO Create(UserCreateDTO user)
+        public EmployeeCreateDTO Create(EmployeeCreateDTO employee)
         {
-            if (user == null)
+            if (employee == null)
             {
-                throw new Exception("Input User is Empty or Null.");
+                throw new Exception("Input Employee is Empty or Null.");
             }
 
-            var newUser = new User();
-            newUser.Email = user.Email;
-            newUser.Password = user.Password;
-            newUser.Type = user.Type;
+            var newEmployee = new Employee();
+            newEmployee.UserId = employee.UserId;
+            newEmployee.FirstName = employee.FirstName;
+            newEmployee.LastName = employee.LastName;
+            newEmployee.WarehouseId = employee.WarehouseId;
 
-            this.dbContext.Users.Add(newUser);
+            this.dbContext.Employees.Add(newEmployee);
             this.dbContext.SaveChanges();
 
-            return user;
+            return employee;
 
         }
 
@@ -79,62 +82,43 @@ namespace DeliverIt13.Services
                 throw new Exception("Input Id is Empty or Null.");
             }
 
-            var user = this.dbContext.Users.FirstOrDefault(u => u.UserId == id);
-            if (user == null)
+            var employee = this.dbContext.Employees.FirstOrDefault(e => e.EmployeeId == id);
+            if (employee == null)
             {
-                throw new NullReferenceException("No user found with this ID.");
+                throw new NullReferenceException("No employee found with this ID.");
             }
 
-            this.dbContext.Users.Remove(user);
+            this.dbContext.Employees.Remove(employee);
             this.dbContext.SaveChanges();
 
             return;
 
         }
 
-        public UserUpdateDTO Update(UserUpdateDTO userDTO)
+        public EmployeeUpdateDTO Update(EmployeeUpdateDTO employeeDTO)
         {
-            if (userDTO == null)
+            if (employeeDTO == null)
             {
                 throw new Exception("Input User is Empty or Null.");
             }
-            var user = this.dbContext.Users.FirstOrDefault(u => u.UserId == userDTO.UserId);
+            var employee = this.dbContext.Employees.FirstOrDefault(e => e.EmployeeId == employeeDTO.EmployeeId);
 
-            if (user == null)
+            if (employee == null)
             {
                 throw new Exception("No User found with this ID.");
             }
 
-            user.Email = userDTO.Email;
-            user.Password = userDTO.Password;
-            user.Type = userDTO.Type;
+            employee.EmployeeId = employeeDTO.EmployeeId;
+            employee.UserId = employeeDTO.UserId;
+            employee.WarehouseId = employeeDTO.WarehouseId;
+            employee.FirstName = employeeDTO.FirstName;
+            employee.LastName = employeeDTO.LastName;
             this.dbContext.SaveChanges();
 
-            return userDTO;
+            return employeeDTO;
         }
 
-        public UserAuthDTO GetByEmail(string email)
-        {
-            if (!IsValidEmail(email))
-            {
-                throw new Exception($"Input \"{email}\" must be a valid email address.");
-            }
-            var user = this.dbContext.Users.FirstOrDefault(u => u.Email == email) ?? throw new Exception($"No user fount with this email: {email}");
-
-            var userDTO = new UserAuthDTO(user);
-
-            return userDTO;
-        }
-
-        bool IsValidEmail(string email)
-        {
-            try {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch {
-                return false;
-            }
-        }
+        
     }
+
 }
