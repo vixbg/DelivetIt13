@@ -5,7 +5,7 @@
     "ArrivalDate": "2023-11-19",
     "DepartureWarehouseId": 1,
     "ArrivalWarehouseId": 3,
-    "Status": 3
+    "Status": 2
   },
   {
     "ShipmentId": 2,
@@ -13,6 +13,6 @@
     "ArrivalDate": "2023-11-29",
     "DepartureWarehouseId": 2,
     "ArrivalWarehouseId": 3,
-    "Status": 1
+    "Status": 0
   }
 ]

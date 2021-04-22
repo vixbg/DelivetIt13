@@ -22,43 +22,31 @@ namespace DeliverIt13.Services.Services
         {
             if (customer == null)
             {
-                throw new ArgumentException("Cannot create customer with no data.");
-            }
-
-            if (this.dbContext.Users.FirstOrDefault(u => u.Email.Equals(customer.Email)) != null)
-            {
-                throw new ArgumentException($"User with email {customer.Email} already exists.");
+                throw new ArgumentException("Input Parcel is Empty or Null.");
             }
 
             Customer newCustomer = new Customer()
             {
-                CustomerId = customer.CustomerId,
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 UserId = customer.UserId,
-                User = customer.User,
                 CityId = customer.CityId,
-                City = customer.City,
                 Street = customer.Street
             };
 
-            User newUser = new User()
-            {
-                UserId = customer.UserId,
-                Type = UserType.Customer,
-                Email = customer.Email,
-                Password = customer.Password
-            };
-
             this.dbContext.Add(newCustomer);
-            this.dbContext.Add(newUser);
             this.dbContext.SaveChanges();
 
             return customer;
         }
 
-        public bool Delete(int id)
+        public void Delete(int id)
         {
+            if (id == null)
+            {
+                throw new NullReferenceException("ID cannot be Null or Empty.");
+
+            }
             var customer = this.dbContext.Customers.FirstOrDefault(c => c.CustomerId == id);
 
             if (customer == null)
@@ -66,43 +54,46 @@ namespace DeliverIt13.Services.Services
                 throw new ArgumentException($"User with id {id} does not exist.");
             }
 
-            var user = this.dbContext.Users.FirstOrDefault(u => u.UserId == customer.UserId);
-
-            if (user == null)
-            {
-                throw new ArgumentException($"User with id {id} does not exist.");
-            }
-
             this.dbContext.Remove(customer);
-            this.dbContext.Remove(user);
             this.dbContext.SaveChanges();
 
-            return true;
+            return;
         }
 
         public CustomerGetDTO Get(int id)
         {
-            var customer = this.dbContext.Customers.FirstOrDefault(c => c.CustomerId == id);
+            if (id == null)
+            {
+                throw new Exception("ID cannot be Null or Empty.");
+
+            }
+            var customer = this.dbContext.Customers
+                .Include(c => c.User)
+                .Include(c => c.City)
+                .ThenInclude(ci => ci.Country)
+                .FirstOrDefault(c => c.CustomerId == id);
 
             if (customer == null)
             {
                 throw new ArgumentException($"Customer with id {id} does not exist.");
             }
 
-            var user = this.dbContext.Users.FirstOrDefault(u => u.UserId == customer.UserId);
+            var customerDTO = new CustomerGetDTO(customer);
 
-            var customerPublicDTO = new CustomerGetDTO(customer);
-
-            return customerPublicDTO;
+            return customerDTO;
         }
 
         public List<CustomerGetDTO> GetAll()
         {
-            var customers = this.dbContext.Customers.Include(c => c.User).ToList();
+            var customers = this.dbContext.Customers
+                .Include(c => c.User)
+                .Include(c => c.City)
+                .ThenInclude(ci => ci.Country)
+                .ToList();
 
-            if (customers.Count == 0)
+            if (customers == null)
             {
-                throw new ArgumentException("No users found.");
+                throw new Exception("No customers found.");
             }
 
             var customerList = customers.Select(c => new CustomerGetDTO(c)).ToList();
@@ -115,57 +106,28 @@ namespace DeliverIt13.Services.Services
             return this.dbContext.Customers.Count();
         }
 
-        public List<CustomerGetDTO> GetByEmail(string email)
-        {
-            //var user = this.dbContext.Customers.Include(c => c.User).FirstOrDefault(c => c.User.Email == email);
-            var customers = this.GetAll();
-
-            var customersByEmail = customers.Where(c => c.Email.Contains(email)).ToList();
-
-            if (customersByEmail.Count == 0)
-            {
-                throw new ArgumentException($"No users found with email {email}.");
-            }
-
-            return customersByEmail;
-        }
-
-        public List<CustomerGetDTO> GetByFirstName(string firstName)
-        {
-            var customers = this.GetAll();
-
-            var customersByFirstName = customers.Where(c => c.FirstName.Equals(firstName)).ToList();
-
-            if (customersByFirstName.Count == 0)
-            {
-                throw new ArgumentException($"No users found with first name {firstName}.");
-            }
-
-            return customersByFirstName;
-        }
-
-        public List<CustomerGetDTO> GetByLastName(string lastName)
-        {
-            var customers = this.GetAll();
-
-            var customersByLastName = customers.Where(c => c.LastName.Equals(lastName)).ToList();
-
-            if (customersByLastName.Count == 0)
-            {
-                throw new ArgumentException($"No users found with last name {lastName}.");
-            }
-
-            return customersByLastName;
-        }
-
         public List<CustomerGetDTO> GetAllBySearch(string search, string searchby)
         {
-            var customers = this.dbContext.Customers.Include(c => c.User).ToList();
-            //var data = this.dbContext.Customers.Include(c => c.User).AsQueryable();
+            //TODO: Search By Multiple Criteria
+            var customers = this.dbContext.Customers
+                .Include(c => c.User)
+                .Include(c=>c.City)
+                .ThenInclude(ci=>ci.Country)
+                .ToList();
 
             if (string.IsNullOrEmpty(search))
             {
                 return customers.Select(c => new CustomerGetDTO(c)).ToList();
+            }
+
+            if (string.IsNullOrEmpty(searchby))
+            {
+                customers = customers
+                    .Where(c => 
+                                c.FirstName.Contains(search, StringComparison.OrdinalIgnoreCase) || 
+                                c.LastName.Contains(search, StringComparison.OrdinalIgnoreCase) || 
+                                c.User.Email.Contains(search, StringComparison.OrdinalIgnoreCase))
+                    .ToList() ?? throw new Exception("No matches found.");
             }
 
             if (searchby == "firstname")
@@ -180,56 +142,32 @@ namespace DeliverIt13.Services.Services
 
             if (searchby == "email")
             {
-                customers = customers.Where(c => c.User.Email.Contains(search, StringComparison.OrdinalIgnoreCase)).ToList() ?? throw new Exception("No matches found."); 
+                customers = customers.Where(c => c.User.Email.Contains(search, StringComparison.OrdinalIgnoreCase)).ToList() ?? throw new Exception("No matches found.");
             }
-
-
-            //if (!string.IsNullOrEmpty(search.FirstName))
-            //{
-            //    data = data.Where(c => c.FirstName.Equals(search.FirstName));
-            //}
-
-            //if (!string.IsNullOrEmpty(search.LastName))
-            //{
-            //    data = data.Where(c => c.LastName.Equals(search.LastName));
-            //}
-
-            //if (!string.IsNullOrEmpty(search.Email))
-            //{
-            //    data = data.Where(c => c.User.Email.Contains(search.Email));
-            //}
-
-            //var customers = data.ToList();
-
-            //if (customers == null)
-            //{
-            //    throw new ArgumentException("No users found.");
-            //}
 
             var customersDTO = customers.Select(c => new CustomerGetDTO(c)).ToList();
 
             return customersDTO;
         }
 
-        public CustomerUpdateDTO Update(int id, CustomerUpdateDTO customerDTO)
+        public CustomerUpdateDTO Update(CustomerUpdateDTO customerDTO)
         {
             if (customerDTO == null)
             {
                 throw new ArgumentException("Input customer cannot be null or empty!");
             }
 
-            var customer = this.dbContext.Customers.FirstOrDefault(c => c.CustomerId == id);
+            var customer = this.dbContext.Customers.FirstOrDefault(c => c.CustomerId == customerDTO.CustomerId);
 
             if (customer == null)
             {
-                throw new ArgumentException("No shipment found with this ID.");
+                throw new ArgumentException("No customer found with this ID.");
             }
 
             customer.CityId = customerDTO.CityId;
-            customer.City = customerDTO.City;
             customer.Street = customerDTO.Street;
-            customer.User.Email = customerDTO.Email;
-            customer.User.Password = customerDTO.Password;
+            customer.FirstName = customerDTO.FirstName;
+            customer.LastName = customerDTO.LastName;
 
             this.dbContext.SaveChanges();
 

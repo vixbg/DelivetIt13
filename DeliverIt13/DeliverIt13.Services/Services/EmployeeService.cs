@@ -11,10 +11,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DeliverIt13.Services
 {
-	public class UserService : IUserService
+	public class EmployeeService 
 	{
 		private readonly DeliverItContext dbContext;
-		public UserService(DeliverItContext dbContext)
+		public EmployeeService(DeliverItContext dbContext)
 		{
 			this.dbContext = dbContext;
 		}

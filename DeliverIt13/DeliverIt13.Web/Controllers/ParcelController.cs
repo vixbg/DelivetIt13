@@ -103,7 +103,7 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
-        [HttpGet("")]
+        [HttpGet("byCustomer")]
         public IActionResult GetAllCustomer([FromHeader] string credentials)
         {
             try

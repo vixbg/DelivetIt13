@@ -42,8 +42,8 @@ namespace DeliverIt13.Services
         {
             var parcels = this.dbContext
                 .Parcels
-                .Include(p => p.CustomerId)
-                .Include(p => p.WarehouseId)
+                .Include(p => p.Customer)
+                .Include(p => p.Warehouse)
                 .Where(p => p.CustomerId == user.UserId)
                 .ToList();
             if (parcels == null)
@@ -105,13 +105,14 @@ namespace DeliverIt13.Services
         {
             if (id == null)
             {
-                throw new NullReferenceException("ID cannot be Null or Empty.");
+                throw new Exception("ID cannot be Null or Empty.");
 
             }
             var parcel = this.dbContext.Parcels.FirstOrDefault(p => p.ParcelId == id);
+
             if (parcel == null)
             {
-                throw new NullReferenceException("No parcels found with this ID.");
+                throw new Exception("No parcels found with this ID.");
             }
 
             this.dbContext.Parcels.Remove(parcel);
