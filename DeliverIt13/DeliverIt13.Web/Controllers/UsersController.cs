@@ -90,7 +90,7 @@ namespace DeliverIt13.Web.Controllers
         }
 
         [HttpPost("public")]
-        public IActionResult PostPublic([FromBody] UserCreatePublicDTO userDTO, [FromHeader] string credentials)
+        public IActionResult PostPublic([FromBody] UserCreatePublicDTO userDTO)
         {
             try
             {
