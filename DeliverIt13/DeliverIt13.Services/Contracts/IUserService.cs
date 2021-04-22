@@ -11,7 +11,7 @@ namespace DeliverIt13.Services.Contracts
         UserAuthDTO Get(int id);
         List<UserAuthDTO> GetAll();
         UserCreateDTO Create(UserCreateDTO user);
-        UserCreatePublicDTO CreatePublic(UserCreatePublicDTO user);
+        int CreatePublic(UserCreatePublicDTO user);
         void Delete(int id);
         UserUpdateDTO Update(UserUpdateDTO userDTO);
         UserAuthDTO GetByEmail(string email);

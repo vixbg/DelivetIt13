@@ -24,12 +24,14 @@ namespace DeliverIt13.Services
 
         public ParcelCustomerDTO Get(int id)
         {
-            if (id == null)
-            {
-                throw new Exception("ID cannot be Null or Empty.");
-
-            }
-            var parcel = this.dbContext.Parcels.FirstOrDefault(p => p.ParcelId == id);
+            
+            var parcel = this.dbContext.Parcels
+                .Include(p=>p.Customer)
+                .ThenInclude(c=>c.User)
+                .Include(p=>p.Warehouse)
+                .ThenInclude(w=>w.City)
+                .Include(p=>p.Shipment)
+                .FirstOrDefault(p => p.ParcelId == id);
             if (parcel == null)
             {
                 throw new Exception("No parcel found with this ID.");
@@ -38,22 +40,22 @@ namespace DeliverIt13.Services
             return newDTO;
         }
 
-        public List<ParcelCustomerDTO> GetAllCustomer(UserAuthDTO user)
+        public List<ParcelSortDTO> GetAllCustomer(UserAuthDTO user)
         {
             var parcels = this.dbContext
                 .Parcels
                 .Include(p => p.Customer)
-                .Include(p => p.Warehouse)
+                .ThenInclude(c=>c.User)
                 .Where(p => p.CustomerId == user.UserId)
                 .ToList();
-            if (parcels == null)
+            if (parcels.Count == 0)
             {
                 throw new Exception("No parcels found.");
             }
-            var parcelDTOs = new List<ParcelCustomerDTO>();
+            var parcelDTOs = new List<ParcelSortDTO>();
             foreach (var parcel in parcels)
             {
-                var newDTO = new ParcelCustomerDTO(parcel);
+                var newDTO = new ParcelSortDTO(parcel);
                 parcelDTOs.Add(newDTO);
             }
 
@@ -64,9 +66,9 @@ namespace DeliverIt13.Services
         {
             var parcels = this.dbContext
                 .Parcels
-                .Include(p => p.CustomerId)
-                .Include(p => p.WarehouseId)
-                .Include(p => p.ShipmentId)
+                .Include(p => p.Customer)
+                .Include(p => p.Warehouse)
+                .Include(p => p.Shipment)
                 .ToList();
             if (parcels == null)
             {
@@ -148,8 +150,8 @@ namespace DeliverIt13.Services
         {
             var data = this.dbContext
                 .Parcels
-                .Include(p => p.CustomerId)
-                .Include(p => p.WarehouseId)
+                .Include(p => p.Customer)
+                .Include(p => p.Warehouse)
                 .AsQueryable();
 
             if (filter.Weight.HasValue)

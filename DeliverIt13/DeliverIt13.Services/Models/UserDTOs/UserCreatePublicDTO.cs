@@ -17,7 +17,7 @@ namespace DeliverIt13.Services.Models.UserDTOs
         }
 
         public string Email { get; set; }
-        public UserType Type { get; set; }
+        private UserType Type { get; set; }
         public string Password { get; set; }
     }
 }

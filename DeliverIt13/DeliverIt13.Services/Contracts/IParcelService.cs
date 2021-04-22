@@ -8,7 +8,7 @@ namespace DeliverIt13.Services.Contracts
     public interface IParcelService
     {
         ParcelCustomerDTO Get(int id);
-        List<ParcelCustomerDTO> GetAllCustomer(UserAuthDTO user);
+        List<ParcelSortDTO> GetAllCustomer(UserAuthDTO user);
         List<ParcelEmployeeDTO> GetAll();
         ParcelCreateDTO Create(ParcelCreateDTO parcel);
         void Delete(int id);

@@ -72,7 +72,7 @@ namespace DeliverIt13.Services
 
         }
 
-        public UserCreatePublicDTO CreatePublic(UserCreatePublicDTO user)
+        public int CreatePublic(UserCreatePublicDTO user)
         {
             if (user == null)
             {
@@ -86,8 +86,9 @@ namespace DeliverIt13.Services
 
             this.dbContext.Users.Add(newUser);
             this.dbContext.SaveChanges();
+            var newUserId = newUser.UserId;
 
-            return user;
+            return newUserId;
 
         }
 

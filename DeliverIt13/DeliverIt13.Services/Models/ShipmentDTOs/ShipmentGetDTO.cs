@@ -19,12 +19,13 @@ namespace DeliverIt13.Services.Models.ShipmentDTOs
             this.DepartureWarehouse = shipment.DepartureWarehouse;
             this.ArrivalWarehouseId = shipment.ArrivalWarehouseId;
             this.ArrivalWarehouse = shipment.ArrivalWarehouse;
+            this.StatusString = Enum.GetName(typeof(ShipmentStatus), shipment.Status);
         }
         public int ShipmentId { get; set; }
         public DateTime DepartureDate { get; set; }
         public DateTime ArrivalDate { get; set; }
         public ShipmentStatus Status { get; set; }
-        public string StatusString => Status.ToString();
+        public string StatusString { get; set; }
         public List<Parcel> Parcels { get; set; } = new List<Parcel>();
         public int DepartureWarehouseId { get; set; }
         public Warehouse DepartureWarehouse { get; set; }

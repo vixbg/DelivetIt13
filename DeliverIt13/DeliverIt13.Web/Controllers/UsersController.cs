@@ -94,8 +94,8 @@ namespace DeliverIt13.Web.Controllers
         {
             try
             {
-                this.userService.CreatePublic(userDTO);
-                return Created("User Created", userDTO);
+                var userId = this.userService.CreatePublic(userDTO);
+                return Created("User Created", userId);
             }
             catch (Exception e)
             {

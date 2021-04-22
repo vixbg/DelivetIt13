@@ -99,7 +99,7 @@ namespace DeliverIt13.Web.Controllers
         }
 
         /// <summary>
-        /// Deletes the specified shipment.
+        /// Deletes the specified shipment.- NOT WORKING
         /// </summary>
         /// <param name="credentials">User authentication - employee.</param>
         /// <param name="id">Id of the Shipment.</param>
@@ -177,7 +177,7 @@ namespace DeliverIt13.Web.Controllers
         /// <param name="credentials">User authentication - employee.</param>
         /// <param name="warehouseId">The warehouse ID.</param>
         /// <returns></returns>
-        [HttpGet("next/{id}")]
+        [HttpGet("next/{warehouseId}")]
         public IActionResult GetNextToArrive([FromHeader] string credentials, int warehouseId)
         {
             try
@@ -223,7 +223,7 @@ namespace DeliverIt13.Web.Controllers
 
         //TODO--Not Done        
         /// <summary>
-        /// Gets all shipments by customer.
+        /// Gets all shipments by customer. - NOT WORKING
         /// </summary>
         /// <param name="credentials">User authentication - employee.</param>
         /// <param name="name">The name of the customer.</param>
