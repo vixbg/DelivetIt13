@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using DeliverIt13.Data;
 using DeliverIt13.Data.Models;
 using DeliverIt13.Services.Contracts;
 using DeliverIt13.Services.Models;
 using System.Linq;
+using DeliverIt13.Services.Models.ParcelDTOs;
+using DeliverIt13.Services.Models.UserDTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeliverIt13.Services
@@ -16,6 +19,99 @@ namespace DeliverIt13.Services
 			this.dbContext = dbContext;
 		}
 
+        public UserAuthDTO Get(int id)
+        {
+            if (id == null)
+            {
+                throw new Exception("ID cannot be Null or Empty.");
+
+            }
+            var user = this.dbContext.Users.FirstOrDefault(u => u.UserId == id);
+            if (user == null)
+            {
+                throw new Exception("No user found with this ID.");
+            }
+            var newDTO = new UserAuthDTO(user);
+            return newDTO;
+        }
+
+        public List<UserAuthDTO> GetAll()
+        {
+            var users = this.dbContext
+                .Users
+                .ToList();
+            if (users == null)
+            {
+                throw new Exception("No users found.");
+            }
+            var userDTOs = new List<UserAuthDTO>();
+            foreach (var user in users)
+            {
+                var newDTO = new UserAuthDTO(user);
+                userDTOs.Add(newDTO);
+            }
+
+            return userDTOs;
+        }
+        public UserCreateDTO Create(UserCreateDTO user)
+        {
+            if (user == null)
+            {
+                throw new Exception("Input User is Empty or Null.");
+            }
+
+            var newUser = new User();
+            newUser.Email = user.Email;
+            newUser.Password = user.Password;
+            newUser.Type = user.Type;
+
+            this.dbContext.Users.Add(newUser);
+            this.dbContext.SaveChanges();
+
+            return user;
+
+        }
+
+        public void Delete(int id)
+        {
+            if (id == null)
+            {
+                throw new Exception("Input Id is Empty or Null.");
+            }
+
+            var user = this.dbContext.Users.FirstOrDefault(u => u.UserId == id);
+            if (user == null)
+            {
+                throw new NullReferenceException("No user found with this ID.");
+            }
+
+            this.dbContext.Users.Remove(user);
+            this.dbContext.SaveChanges();
+
+            return;
+
+        }
+
+        public UserUpdateDTO Update(UserUpdateDTO userDTO)
+        {
+            if (userDTO == null)
+            {
+                throw new Exception("Input User is Empty or Null.");
+            }
+            var user = this.dbContext.Users.FirstOrDefault(u => u.UserId == userDTO.UserId);
+
+            if (user == null)
+            {
+                throw new Exception("No User found with this ID.");
+            }
+
+            user.Email = userDTO.Email;
+            user.Password = userDTO.Password;
+            user.Type = userDTO.Type;
+            this.dbContext.SaveChanges();
+
+            return userDTO;
+        }
 
         public UserAuthDTO GetByEmail(string email)
         {

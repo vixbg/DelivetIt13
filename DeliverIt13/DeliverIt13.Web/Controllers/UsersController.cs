@@ -1,33 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using DeliverIt13.Data.Enums;
 using DeliverIt13.Services.Contracts;
+using DeliverIt13.Services.Models;
+using DeliverIt13.Services.Models.ParcelDTOs;
 using DeliverIt13.Services.Models.UserDTOs;
 using DeliverIt13.Web.Helpers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DeliverIt13.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class EmployeesController : ControllerBase
+    public class UsersController : ControllerBase
     {
-        private readonly IEmployeeService employeeService;
+        private readonly IUserService userService;
         private readonly IAuthHelper authHelper;
 
-        public EmployeesController(IEmployeeService employeeService, IAuthHelper authHelper)
+        public UsersController(IUserService userService, IAuthHelper authHelper)
         {
-            this.employeeService = employeeService;
+            
+            this.userService = userService;
             this.authHelper = authHelper;
         }
 
         /// <summary>
-        /// Gets the specified employee.
+        /// Gets the specified credentials.
         /// </summary>
-        /// <param name="credentials">User authentication - employee.</param>
-        /// <param name="id">Id of the requested employee.</param>
+        /// <param name="credentials">The credentials.</param>
+        /// <param name="id">The identifier.</param>
         /// <returns></returns>
         [HttpGet("{id}")]
         public IActionResult Get([FromHeader] string credentials, int id)
@@ -39,9 +40,8 @@ namespace DeliverIt13.Web.Controllers
                 {
                     return Unauthorized(credentials);
                 }
-
-                var employee = this.employeeService.Get(id);
-                return Ok(employee);
+                var userEntity = this.userService.Get(id);
+                return Ok(userEntity);
             }
             catch (Exception e)
             {
@@ -49,11 +49,7 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
-        /// <summary>
-        /// Gets all employees.
-        /// </summary>
-        /// <param name="credentials">User authentication - employee.</param>
-        /// <returns></returns>
+        
         [HttpGet("")]
         public IActionResult GetAll([FromHeader] string credentials)
         {
@@ -64,8 +60,8 @@ namespace DeliverIt13.Web.Controllers
                 {
                     return Unauthorized(credentials);
                 }
-                var employee = this.employeeService.GetAll();
-                return Ok(employee);
+
+                return Ok(this.userService.GetAll());
             }
             catch (Exception e)
             {
@@ -73,14 +69,9 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
-        /// <summary>
-        /// Creates the specified employee.
-        /// </summary>
-        /// <param name="credentials">User authentication - employee.</param>
-        /// <param name="employee">Employee to be created.</param>
-        /// <returns></returns>
+
         [HttpPost("")]
-        public IActionResult Post([FromHeader] string credentials,[FromBody] EmployeeCreateDTO employee)
+        public IActionResult Post([FromBody] UserCreateDTO userDTO, [FromHeader] string credentials)
         {
             try
             {
@@ -89,8 +80,8 @@ namespace DeliverIt13.Web.Controllers
                 {
                     return Unauthorized(credentials);
                 }
-                this.employeeService.Create(employee);
-                return Created("Employee created", employee);
+                this.userService.Create(userDTO);
+                return Created("User Created", userDTO);
             }
             catch (Exception e)
             {
@@ -98,51 +89,37 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
-        /// <summary>
-        /// Updates the specified employee.
-        /// </summary>
-        /// <param name="credentials">User authentication - employee.</param>
-        /// <param name="employee">Employee to be updated.</param>
-        /// <returns></returns>
-        [HttpPut("")]
-        public IActionResult Put([FromHeader] string credentials, [FromBody] EmployeeUpdateDTO employee)
-        {
-            try
-            {
-                var user = this.authHelper.TryGetUser(credentials);
-                if (user.Type != UserType.Employee)
-                {
-                    return Unauthorized(credentials);
-                }
-                
-                var updatedEmployee = this.employeeService.Update(employee);
-                return Ok(updatedEmployee);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
-        /// <summary>
-        /// Deletes the specified employee.
-        /// </summary>
-        /// <param name="credentials">User authentication - employee.</param>
-        /// <param name="id">Id of the employee to be deleted</param>
-        /// <returns></returns>
         [HttpDelete("{id}")]
-        public IActionResult Delete([FromHeader] string credentials, int id)
+        public IActionResult Delete(int id,[FromHeader] string credentials)
         {
             try
             {
                 var user = this.authHelper.TryGetUser(credentials);
-                if (user.Type != UserType.Customer)
+                if (user.Type != UserType.Employee)
                 {
                     return Unauthorized(credentials);
                 }
-
-                this.employeeService.Delete(id);
+                this.userService.Delete(id);
                 return NoContent();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPut("")]
+        public IActionResult Put([FromBody] UserUpdateDTO userDTO,[FromHeader] string credentials)
+        {
+            try
+            {
+                var user = this.authHelper.TryGetUser(credentials);
+                if (user.Type != UserType.Employee)
+                {
+                    return Unauthorized(credentials);
+                }
+                var updatedUser = this.userService.Update(userDTO);
+                return Ok(updatedUser);
             }
             catch (Exception e)
             {

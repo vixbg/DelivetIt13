@@ -2,15 +2,15 @@
   {
     "EmployeeId": 1,
     "UserId": 1,
-    "FirstName": "Yénora",
-    "LastName": "Vlahos",
+    "FirstName": "Lcool",
+    "LastName": "Bear",
     "WarehouseId": 1
   },
   {
     "EmployeeId": 2,
     "UserId": 2,
-    "FirstName": "Aloïs",
-    "LastName": "Bjorkan",
+    "FirstName": "Walois",
+    "LastName": "Lavale",
     "WarehouseId": 2
   }
 ]

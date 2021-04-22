@@ -7,12 +7,6 @@ namespace DeliverIt13.Services.Contracts
     {
         CustomerGetDTO Get(int id);
 
-        List<CustomerGetDTO> GetByEmail(string email);
-
-        List<CustomerGetDTO> GetByFirstName(string firstName);
-
-        List<CustomerGetDTO> GetByLastName(string lastName);
-
         List<CustomerGetDTO> GetAllBySearch(string search, string searchby);
 
         List<CustomerGetDTO> GetAll();
@@ -21,8 +15,8 @@ namespace DeliverIt13.Services.Contracts
 
         CustomerCreateDTO Create(CustomerCreateDTO customer);
 
-        bool Delete(int id);
+        void Delete(int id);
 
-        CustomerUpdateDTO Update(int id, CustomerUpdateDTO customerDTO);
+        CustomerUpdateDTO Update(CustomerUpdateDTO customerDTO);
     }
 }

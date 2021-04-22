@@ -8,18 +8,22 @@ namespace DeliverIt13.Services.Models.ShipmentDTOs
 {
     public class ShipmentUpdateDTO
     {
-        //status
-        //parcels removal
-
+        public ShipmentUpdateDTO() { }
         public ShipmentUpdateDTO(Shipment shipment)
         {
+
+            this.DepartureDate = shipment.DepartureDate;
+            this.ArrivalDate = shipment.ArrivalDate;
             this.Status = shipment.Status;
-            this.Parcels.AddRange(shipment.Parcels);
+            this.DepartureWarehouseId = shipment.DepartureWarehouseId;
+            this.ArrivalWarehouseId = shipment.ArrivalWarehouseId;
+        
         }
         public int ShipmentId { get; set; }
-        
+        public DateTime DepartureDate { get; set; }
+        public DateTime ArrivalDate { get; set; }
         public ShipmentStatus Status { get; set; }
-        public List<Parcel> Parcels { get; set; } = new List<Parcel>();
-        
+        public int DepartureWarehouseId { get; set; }
+        public int ArrivalWarehouseId { get; set; }
     }
 }

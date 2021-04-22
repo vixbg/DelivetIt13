@@ -22,8 +22,14 @@ namespace DeliverIt13.Web.Controllers
             this.authHelper = authHelper;
         }
 
+        /// <summary>
+        /// Gets the specified parcel.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="id">Id of the parcel</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
-        public IActionResult Get(int id,[FromHeader] string credentials)
+        public IActionResult Get([FromHeader] string credentials,int id)
         {
             try
             {
@@ -41,7 +47,13 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
-        // api/parcel?sort=weight&and=shipment
+        /// <summary>
+        /// Gets all parcels with sorting.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="sort">Sort by - weight, date, category, warehouse, shipment - can be left blank.</param>
+        /// <param name="and">Second sort parameter - and by weight, date, category, warehouse, shipment - can be left blank.</param>
+        /// <returns></returns>
         [HttpGet("")]
         public IActionResult GetAll([FromHeader] string credentials, [FromQuery] string sort, [FromQuery] string and)
         {
@@ -84,6 +96,13 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Gets all parcels, filtered.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="filter">Filter by weight, customer, warehouse, category - can be left blank.</param>
+        /// <returns></returns>
         [HttpPost("filter")]
         public IActionResult GetAllFiltered([FromHeader] string credentials, [FromBody] ParcelFilterDTO filter)
         {
@@ -103,7 +122,12 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
-        [HttpGet("")]
+        /// <summary>
+        /// Gets all parcels for specific customer.
+        /// </summary>
+        /// <param name="credentials">User authentication - customer.</param>
+        /// <returns></returns>
+        [HttpGet("byCustomer")]
         public IActionResult GetAllCustomer([FromHeader] string credentials)
         {
             try
@@ -124,6 +148,12 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates the specified parcel.
+        /// </summary>
+        /// <param name="parcel">The parcel that will be created.</param>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <returns></returns>
         [HttpPost("")]
         public IActionResult Post([FromBody] ParcelCreateDTO parcel, [FromHeader] string credentials)
         {
@@ -144,8 +174,15 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Deletes the specified parcel.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="id">Id of the parcel.</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id,[FromHeader] string credentials)
+        public IActionResult Delete([FromHeader] string credentials, int id)
         {
             try
             {
@@ -163,8 +200,15 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Updates the specified parcel.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="parcel">The parcel that will be updated.</param>
+        /// <returns></returns>
         [HttpPut("")]
-        public IActionResult Put([FromBody] ParcelCreateDTO parcel,[FromHeader] string credentials)
+        public IActionResult Put([FromHeader] string credentials, [FromBody] ParcelCreateDTO parcel)
         {
             try
             {

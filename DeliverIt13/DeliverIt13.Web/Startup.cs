@@ -48,6 +48,7 @@ namespace DeliverIt13.Web
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IParcelService, ParcelService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
 
             services.AddSwaggerGen(c => c.ResolveConflictingActions(a => a.First()));
             services.AddSwaggerGen(c =>

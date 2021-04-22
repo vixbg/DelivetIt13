@@ -14,33 +14,62 @@ namespace DeliverIt13.Web.Controllers
     [Route("api/[controller]")]
     public class CustomersController : Controller
     {
-        //crud - done
-        //public - how many customers and post 
-        //search by email
-        //search by first/last name
-        //see incoming parcels
-        //search by multiple criteria ??????????
-        //search all fields - nema shans 
 
         private readonly ICustomerService customerService;
         private readonly IAuthHelper authHelper;
+        private readonly IParcelService parcelService;
 
-        public CustomersController(ICustomerService customerService, IAuthHelper authHelper)
+        public CustomersController(ICustomerService customerService, IAuthHelper authHelper, IParcelService parcelService)
         {
             this.customerService = customerService;
             this.authHelper = authHelper;
+            this.parcelService = parcelService;
         }
 
-        // api/customer?search=
+        /// <summary>
+        /// Gets all customers with search parameters.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="search">Search string - can be left blank.</param>
+        /// <param name="searchBy">Search by: FirstName, LastName, Email - can be left blank.</param>
+        /// <returns></returns>
         [HttpGet("")]
-        public IActionResult GetAllSearch([FromQuery] string search, string searchby)
+        public IActionResult GetAllSearch([FromHeader] string credentials,[FromQuery] string search, string searchBy)
         {
             try
             {
-                //[FromHeader] string credentials,
-                //var user = this.authHelper.TryGetUser(credentials);
+                var user = this.authHelper.TryGetUser(credentials);
+                if (user.Type != UserType.Employee)
+                {
+                    return Unauthorized(credentials);
+                }
+                var customers = this.customerService.GetAllBySearch(search, searchBy);
 
-                var customers = this.customerService.GetAllBySearch(search, searchby);
+                return Ok(customers);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets all parcels for specified customer.
+        /// </summary>
+        /// <param name="credentials">User authentication - customer.</param>
+        /// <returns></returns>
+        [HttpGet("parcels")]
+        public IActionResult GetAllParcels([FromHeader] string credentials)
+        {
+            try
+            {
+                var user = this.authHelper.TryGetUser(credentials);
+                if (user.Type != UserType.Customer)
+                {
+                    return Unauthorized(credentials);
+                }
+
+                var customers = this.parcelService.GetAllCustomer(user);
 
                 return Ok(customers);
             }
@@ -51,6 +80,12 @@ namespace DeliverIt13.Web.Controllers
         }
 
 
+        /// <summary>
+        /// Gets the specified customer.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="id">Id of the customer.</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public IActionResult Get([FromHeader] string credentials, int id)
         {
@@ -71,13 +106,23 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all customers - internal for employees.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <returns></returns>
         [HttpGet("all")]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromHeader] string credentials)
         {
             try
             {
-                var count = this.customerService.GetCount();
-                return Ok(count);
+                var user = this.authHelper.TryGetUser(credentials);
+                if (user.Type != UserType.Employee)
+                {
+                    return Unauthorized(credentials);
+                }
+                var customers = this.customerService.GetAll();
+                return Ok(customers);
             }
             catch (Exception e)
             {
@@ -85,11 +130,22 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a specified customer.
+        /// </summary>
+        /// <param name="credentials">User authentication - customer.</param>
+        /// <param name="customer">The customer that will be created.</param>
+        /// <returns></returns>
         [HttpPost("")]
-        public IActionResult Post([FromBody] CustomerCreateDTO customer)
+        public IActionResult Post([FromHeader] string credentials,[FromBody] CustomerCreateDTO customer)
         {
             try
             {
+                var user = this.authHelper.TryGetUser(credentials);
+                if (user.Type != UserType.Customer)
+                {
+                    return Unauthorized(credentials);
+                }
                 this.customerService.Create(customer);
                 return Created("User created", customer);
             }
@@ -99,14 +155,24 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates a specified customer.
+        /// </summary>
+        /// <param name="credentials">User authentication - customer.</param>
+        /// <param name="customer">The customer that will be updated.</param>
+        /// <returns></returns>
         [HttpPut("")]
-        public IActionResult Put([FromHeader] string credentials, [FromBody] CustomerUpdateDTO customer, int id)
+        public IActionResult Put([FromHeader] string credentials, [FromBody] CustomerUpdateDTO customer)
         {
             try
             {
                 var user = this.authHelper.TryGetUser(credentials);
+                if (user.Type != UserType.Customer)
+                {
+                    return Unauthorized(credentials);
+                }
                 
-                var updatedCustomer = this.customerService.Update(id, customer);
+                var updatedCustomer = this.customerService.Update(customer);
                 return Ok(updatedCustomer);
             }
             catch (Exception e)
@@ -115,13 +181,20 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Deletes the specified customer.
+        /// </summary>
+        /// <param name="credentials">User authentication - employee.</param>
+        /// <param name="id">Id of the customer.</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public IActionResult Delete([FromHeader] string credentials, int id)
         {
             try
             {
                 var user = this.authHelper.TryGetUser(credentials);
-                if (user.Type != UserType.Employee)
+                if (user.Type != UserType.Customer)
                 {
                     return Unauthorized(credentials);
                 }

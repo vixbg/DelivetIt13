@@ -24,6 +24,6 @@ namespace DeliverIt13.Services.Models
         public string Street { get; set; }
         public WarehouseType WarehouseType { get; set; }
         public string WarehouseTypeString { get; set; }
-        
+
     }
 }
