@@ -72,6 +72,25 @@ namespace DeliverIt13.Services
 
         }
 
+        public UserCreatePublicDTO CreatePublic(UserCreatePublicDTO user)
+        {
+            if (user == null)
+            {
+                throw new Exception("Input User is Empty or Null.");
+            }
+
+            var newUser = new User();
+            newUser.Email = user.Email;
+            newUser.Password = user.Password;
+            
+
+            this.dbContext.Users.Add(newUser);
+            this.dbContext.SaveChanges();
+
+            return user;
+
+        }
+
         public void Delete(int id)
         {
             if (id == null)

@@ -31,7 +31,7 @@ namespace DeliverIt13.Web.Controllers
         /// </summary>
         /// <param name="credentials">User authentication - employee.</param>
         /// <param name="search">Search string - can be left blank.</param>
-        /// <param name="searchBy">Search by: FirstName, LastName, Email - can be left blank.</param>
+        /// <param name="searchBy">Search by: firstname, lastname, email - can be left blank.</param>
         /// <returns></returns>
         [HttpGet("")]
         public IActionResult GetAllSearch([FromHeader] string credentials,[FromQuery] string search, string searchBy)

@@ -196,7 +196,6 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
-
         /// <summary>
         /// Gets all shipments by warehouse.
         /// </summary>

@@ -89,6 +89,20 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        [HttpPost("public")]
+        public IActionResult PostPublic([FromBody] UserCreatePublicDTO userDTO, [FromHeader] string credentials)
+        {
+            try
+            {
+                this.userService.CreatePublic(userDTO);
+                return Created("User Created", userDTO);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id,[FromHeader] string credentials)
         {
