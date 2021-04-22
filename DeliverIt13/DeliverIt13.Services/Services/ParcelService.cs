@@ -105,11 +105,6 @@ namespace DeliverIt13.Services
 
         public void Delete(int id)
         {
-            if (id == null)
-            {
-                throw new Exception("ID cannot be Null or Empty.");
-
-            }
             var parcel = this.dbContext.Parcels.FirstOrDefault(p => p.ParcelId == id);
 
             if (parcel == null)

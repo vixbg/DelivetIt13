@@ -21,18 +21,13 @@ namespace DeliverIt13.Services
 
         public WarehouseGetDTO Get(int id)
         {
-            if (id == null)
-            {
-                throw new NullReferenceException("ID cannot be Null or Empty.");
-
-            }
             var warehouse = this.dbContext.Warehouses
                 .Include(w => w.City)
                 .ThenInclude(c => c.Country)
                 .FirstOrDefault(w => w.WarehouseId == id);
             if (warehouse == null)
             {
-                throw new NullReferenceException("No warehouse found with this ID.");
+                throw new Exception("No warehouse found with this ID.");
             }
             var newDTO = new WarehouseGetDTO(warehouse);
             return newDTO;
@@ -48,7 +43,7 @@ namespace DeliverIt13.Services
 
             if (warehouses == null)
             {
-                throw new NullReferenceException("No warehouses found.");
+                throw new Exception("No warehouses found.");
             }
 
             var warehouseDTOs = new List<WarehousePublicDTO>();
@@ -71,7 +66,7 @@ namespace DeliverIt13.Services
 
             if (warehouses == null)
             {
-                throw new NullReferenceException("No warehouses found.");
+                throw new Exception("No warehouses found.");
             }
 
             var warehouseDTOs = new List<WarehouseGetDTO>();
@@ -88,7 +83,7 @@ namespace DeliverIt13.Services
         {
             if (warehouse == null)
             {
-                throw new NullReferenceException("Input Warehouse is Empty or Null.");
+                throw new Exception("Input Warehouse is Empty or Null.");
             }
             var newWarehouse = new Warehouse();
             newWarehouse.Type = warehouse.WarehouseType;
@@ -103,15 +98,10 @@ namespace DeliverIt13.Services
 
         public bool Delete(int id)
         {
-            if (id == null)
-            {
-                throw new NullReferenceException("ID cannot be Null or Empty.");
-
-            }
             var warehouse = this.dbContext.Warehouses.FirstOrDefault(w => w.WarehouseId == id);
             if (warehouse == null)
             {
-                throw new NullReferenceException("No warehouse found with this ID.");
+                throw new Exception("No warehouse found with this ID.");
             }
 
             this.dbContext.Warehouses.Remove(warehouse);
@@ -125,13 +115,13 @@ namespace DeliverIt13.Services
         {
             if (warehouseDTO == null)
             {
-                throw new NullReferenceException("Input Warehouse is Empty or Null.");
+                throw new Exception("Input Warehouse is Empty or Null.");
             }
             var warehouse = this.dbContext.Warehouses.FirstOrDefault(w => w.WarehouseId == warehouseDTO.WarehouseId);
 
             if (warehouse == null)
             {
-                throw new NullReferenceException("No warehouse found with this ID.");
+                throw new Exception("No warehouse found with this ID.");
             }
 
             warehouse.CityId = warehouseDTO.CityId;

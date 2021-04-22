@@ -25,7 +25,7 @@ namespace DeliverIt13.Services
 
             if (city == null)
             {
-                throw new ArgumentException("City was not found!");
+                throw new Exception("City was not found!");
             }
 
             CityGetDTO cityDTO = new CityGetDTO(city);
@@ -40,7 +40,7 @@ namespace DeliverIt13.Services
 
             if (cities.Count == 0)
             {
-                throw new ArgumentException("No cities found!");
+                throw new Exception("No cities found!");
             }
 
             List<CityGetDTO> citiesDTO = cities.Select(c => new CityGetDTO(c)).ToList();                    

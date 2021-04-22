@@ -22,7 +22,7 @@ namespace DeliverIt13.Services.Services
         {
             if (customer == null)
             {
-                throw new ArgumentException("Input Parcel is Empty or Null.");
+                throw new Exception("Input Parcel is Empty or Null.");
             }
 
             Customer newCustomer = new Customer()
@@ -42,16 +42,11 @@ namespace DeliverIt13.Services.Services
 
         public void Delete(int id)
         {
-            if (id == null)
-            {
-                throw new NullReferenceException("ID cannot be Null or Empty.");
-
-            }
             var customer = this.dbContext.Customers.FirstOrDefault(c => c.CustomerId == id);
 
             if (customer == null)
             {
-                throw new ArgumentException($"User with id {id} does not exist.");
+                throw new Exception($"User with id {id} does not exist.");
             }
 
             this.dbContext.Remove(customer);
@@ -62,11 +57,6 @@ namespace DeliverIt13.Services.Services
 
         public CustomerGetDTO Get(int id)
         {
-            if (id == null)
-            {
-                throw new Exception("ID cannot be Null or Empty.");
-
-            }
             var customer = this.dbContext.Customers
                 .Include(c => c.User)
                 .Include(c => c.City)
@@ -75,7 +65,7 @@ namespace DeliverIt13.Services.Services
 
             if (customer == null)
             {
-                throw new ArgumentException($"Customer with id {id} does not exist.");
+                throw new Exception($"Customer with id {id} does not exist.");
             }
 
             var customerDTO = new CustomerGetDTO(customer);
@@ -154,14 +144,14 @@ namespace DeliverIt13.Services.Services
         {
             if (customerDTO == null)
             {
-                throw new ArgumentException("Input customer cannot be null or empty!");
+                throw new Exception("Input customer cannot be null or empty!");
             }
 
             var customer = this.dbContext.Customers.FirstOrDefault(c => c.CustomerId == customerDTO.CustomerId);
 
             if (customer == null)
             {
-                throw new ArgumentException("No customer found with this ID.");
+                throw new Exception("No customer found with this ID.");
             }
 
             customer.CityId = customerDTO.CityId;

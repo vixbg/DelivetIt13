@@ -94,15 +94,10 @@ namespace DeliverIt13.Services
 
         public void Delete(int id)
         {
-            if (id == null)
-            {
-                throw new Exception("Input Id is Empty or Null.");
-            }
-
             var user = this.dbContext.Users.FirstOrDefault(u => u.UserId == id);
             if (user == null)
             {
-                throw new NullReferenceException("No user found with this ID.");
+                throw new Exception("No user found with this ID.");
             }
 
             this.dbContext.Users.Remove(user);

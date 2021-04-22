@@ -21,11 +21,6 @@ namespace DeliverIt13.Services
 
         public EmployeeGetDTO Get(int id)
         {
-            if (id == null)
-            {
-                throw new Exception("ID cannot be Null or Empty.");
-
-            }
             var user = this.dbContext.Employees.FirstOrDefault(u => u.UserId == id);
             if (user == null)
             {
@@ -77,22 +72,16 @@ namespace DeliverIt13.Services
 
         public void Delete(int id)
         {
-            if (id == null)
-            {
-                throw new Exception("Input Id is Empty or Null.");
-            }
-
             var employee = this.dbContext.Employees.FirstOrDefault(e => e.EmployeeId == id);
             if (employee == null)
             {
-                throw new NullReferenceException("No employee found with this ID.");
+                throw new Exception("No employee found with this ID.");
             }
 
             this.dbContext.Employees.Remove(employee);
             this.dbContext.SaveChanges();
 
             return;
-
         }
 
         public EmployeeUpdateDTO Update(EmployeeUpdateDTO employeeDTO)
@@ -117,7 +106,6 @@ namespace DeliverIt13.Services
 
             return employeeDTO;
         }
-
         
     }
 

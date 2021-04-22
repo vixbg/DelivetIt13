@@ -23,11 +23,6 @@ namespace DeliverIt13.Services
         }
         public ShipmentGetDTO Get(int id)
         {
-            if (id == null)
-            {
-                throw new Exception("ID cannot be Null or Empty.");
-
-            }
             var shipment = this.dbContext.Shipments
                 .Include(s => s.DepartureWarehouse)
                 .ThenInclude(w=>w.City)
@@ -88,11 +83,6 @@ namespace DeliverIt13.Services
 
         public void Delete(int id)
         {
-            if (id == null)
-            {
-                throw new Exception("ID cannot be Null or Empty.");
-
-            }
             var shipment = this.dbContext.Shipments.FirstOrDefault(sh => sh.ShipmentId == id);
 
             if (shipment == null)
@@ -117,7 +107,7 @@ namespace DeliverIt13.Services
 
             if (shipment == null)
             {
-                throw new ArgumentException("No shipment found with this ID.");
+                throw new Exception("No shipment found with this ID.");
             }
 
             shipment.Status = shipmentDTO.Status;
@@ -143,7 +133,7 @@ namespace DeliverIt13.Services
 
             if (nextShipment == null)
             {
-                throw new ArgumentException("There are no next shipments.");
+                throw new Exception("There are no next shipments.");
             }
 
             return new ShipmentPublicDTO(nextShipment);
@@ -155,7 +145,7 @@ namespace DeliverIt13.Services
 
             if (shipment == null)
             {
-                throw new ArgumentException("No shipment found with this ID.");
+                throw new Exception("No shipment found with this ID.");
             }
 
             var shipmentDTO = new ShipmentPublicDTO(shipment);
@@ -182,9 +172,7 @@ namespace DeliverIt13.Services
             var shipments = this.dbContext.Shipments.Where(s=> s.ArrivalWarehouse.City.Name == cityName).ToList();
 
             return shipments.Count;
-        }
-
-        
+        }       
 
         
     }
