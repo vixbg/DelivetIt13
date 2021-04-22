@@ -101,7 +101,7 @@ namespace DeliverIt13.Services
             return warehouse;
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             if (id == null)
             {
@@ -117,7 +117,7 @@ namespace DeliverIt13.Services
             this.dbContext.Warehouses.Remove(warehouse);
             this.dbContext.SaveChanges();
 
-            return;
+            return true;
 
         }
 

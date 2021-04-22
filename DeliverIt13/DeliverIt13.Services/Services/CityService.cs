@@ -29,22 +29,21 @@ namespace DeliverIt13.Services
             }
 
             CityGetDTO cityDTO = new CityGetDTO(city);
-            cityDTO.Name = city.Name;
 
             return cityDTO;
         }
+
 
         public List<CityGetDTO> GetAll()
         {
             var cities = this.dbContext.Cities.ToList();
 
-            List<CityGetDTO> citiesDTO = new List<CityGetDTO>();
-
-            foreach (var city in cities)
+            if (cities.Count == 0)
             {
-                CityGetDTO cityDTO = new CityGetDTO(city);
-                citiesDTO.Add(cityDTO);
+                throw new ArgumentException("No cities found!");
             }
+
+            List<CityGetDTO> citiesDTO = cities.Select(c => new CityGetDTO(c)).ToList();                    
 
             return citiesDTO;
         }

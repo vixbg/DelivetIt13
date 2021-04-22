@@ -7,7 +7,7 @@ namespace DeliverIt13.Services.Models
     public class WarehouseUpdateDTO
     {
 
-        public WarehouseUpdateDTO(Warehouse warehouse)
+        public WarehouseUpdateDTO()
         {
             
         }
