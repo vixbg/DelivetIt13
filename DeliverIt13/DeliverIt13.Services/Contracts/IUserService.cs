@@ -12,7 +12,7 @@ namespace DeliverIt13.Services.Contracts
         List<UserAuthDTO> GetAll();
         UserCreateDTO Create(UserCreateDTO user);
         int CreatePublic(UserCreatePublicDTO user);
-        void Delete(int id);
+        bool Delete(int id);
         UserUpdateDTO Update(UserUpdateDTO userDTO);
         UserAuthDTO GetByEmail(string email);
     }

@@ -12,7 +12,7 @@ namespace DeliverIt13.Services.Contracts
         ShipmentGetDTO Get(int id);
         List<ShipmentGetDTO> GetAll();
         ShipmentCreateDTO Create(ShipmentCreateDTO shipment);
-        void Delete(int id);
+        bool Delete(int id);
         ShipmentUpdateDTO Update(ShipmentUpdateDTO shipmentDTO);
         ShipmentPublicDTO GetNextToArrive(int warehouseId);
         ShipmentPublicDTO GetStatus(int id);

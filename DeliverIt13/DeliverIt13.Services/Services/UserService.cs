@@ -21,17 +21,15 @@ namespace DeliverIt13.Services
 
         public UserAuthDTO Get(int id)
         {
-            if (id == null)
-            {
-                throw new Exception("ID cannot be Null or Empty.");
-
-            }
             var user = this.dbContext.Users.FirstOrDefault(u => u.UserId == id);
+
             if (user == null)
             {
                 throw new Exception("No user found with this ID.");
             }
+
             var newDTO = new UserAuthDTO(user);
+
             return newDTO;
         }
 
@@ -40,11 +38,14 @@ namespace DeliverIt13.Services
             var users = this.dbContext
                 .Users
                 .ToList();
-            if (users == null)
+
+            if (users.Count == 0)
             {
                 throw new Exception("No users found.");
             }
+
             var userDTOs = new List<UserAuthDTO>();
+
             foreach (var user in users)
             {
                 var newDTO = new UserAuthDTO(user);
@@ -92,9 +93,10 @@ namespace DeliverIt13.Services
 
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             var user = this.dbContext.Users.FirstOrDefault(u => u.UserId == id);
+
             if (user == null)
             {
                 throw new Exception("No user found with this ID.");
@@ -103,7 +105,7 @@ namespace DeliverIt13.Services
             this.dbContext.Users.Remove(user);
             this.dbContext.SaveChanges();
 
-            return;
+            return true;
 
         }
 
@@ -113,6 +115,7 @@ namespace DeliverIt13.Services
             {
                 throw new Exception("Input User is Empty or Null.");
             }
+
             var user = this.dbContext.Users.FirstOrDefault(u => u.UserId == userDTO.UserId);
 
             if (user == null)
@@ -134,6 +137,7 @@ namespace DeliverIt13.Services
             {
                 throw new Exception($"Input \"{email}\" must be a valid email address.");
             }
+
             var user = this.dbContext.Users.FirstOrDefault(u => u.Email == email) ?? throw new Exception($"No user fount with this email: {email}");
 
             var userDTO = new UserAuthDTO(user);
@@ -143,11 +147,13 @@ namespace DeliverIt13.Services
 
         bool IsValidEmail(string email)
         {
-            try {
+            try 
+            {
                 var addr = new System.Net.Mail.MailAddress(email);
                 return addr.Address == email;
             }
-            catch {
+            catch 
+            {
                 return false;
             }
         }

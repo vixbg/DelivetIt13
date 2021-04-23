@@ -31,11 +31,14 @@ namespace DeliverIt13.Services
                 .ThenInclude(w=>w.City)
                 .ThenInclude(c=>c.Country)
                 .FirstOrDefault(s => s.ShipmentId == id);
+
             if (shipment == null)
             {
                 throw new Exception("No shipments found with this ID.");
             }
+
             var newDTO = new ShipmentGetDTO(shipment);
+
             return newDTO;
         }
         public List<ShipmentGetDTO> GetAll()
@@ -49,7 +52,12 @@ namespace DeliverIt13.Services
                 .ThenInclude(c=>c.Country)
                 .ToList();
 
-            var shipmentsDTOs = new List<ShipmentGetDTO>();
+            if (shipments.Count == 0)
+            {
+                throw new Exception("No shipments found.");
+            }
+
+            var shipmentsDTOs = new List<ShipmentGetDTO>();            
 
             foreach (var shipment in shipments)
             {
@@ -81,7 +89,7 @@ namespace DeliverIt13.Services
             return shipment;
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             var shipment = this.dbContext.Shipments.FirstOrDefault(sh => sh.ShipmentId == id);
 
@@ -93,7 +101,7 @@ namespace DeliverIt13.Services
             this.dbContext.Shipments.Remove(shipment);
             this.dbContext.SaveChanges();
 
-            return;
+            return true;
         }
 
         public ShipmentUpdateDTO Update(ShipmentUpdateDTO shipmentDTO)
@@ -173,7 +181,6 @@ namespace DeliverIt13.Services
 
             return shipments.Count;
         }       
-
         
     }
     
