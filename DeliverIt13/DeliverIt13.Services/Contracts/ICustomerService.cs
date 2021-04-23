@@ -15,7 +15,7 @@ namespace DeliverIt13.Services.Contracts
 
         CustomerCreateDTO Create(CustomerCreateDTO customer);
 
-        void Delete(int id);
+        bool Delete(int id);
 
         CustomerUpdateDTO Update(CustomerUpdateDTO customerDTO);
     }

@@ -41,7 +41,7 @@ namespace DeliverIt13.Services
                 .ThenInclude(c => c.Country)
                 .ToList();
 
-            if (warehouses == null)
+            if (warehouses.Count == 0)
             {
                 throw new Exception("No warehouses found.");
             }
@@ -64,7 +64,7 @@ namespace DeliverIt13.Services
                 .ThenInclude(c => c.Country)
                 .ToList();
 
-            if (warehouses == null)
+            if (warehouses.Count == 0)
             {
                 throw new Exception("No warehouses found.");
             }

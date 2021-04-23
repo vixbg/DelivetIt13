@@ -1,12 +1,13 @@
 ﻿using DeliverIt13.Data;
 using DeliverIt13.Data.Models;
 using DeliverIt13.Services;
+using DeliverIt13.Services.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeliverIt13.Tests.ServiceTests.WarehouseServiceTests
+namespace DeliverIt13.Tests.ServiceTests.CustomerServiceTests
 {
     [TestClass]
     public class Delete_Should
@@ -16,39 +17,40 @@ namespace DeliverIt13.Tests.ServiceTests.WarehouseServiceTests
         {
             var options = Utils.GetOptions(nameof(Should_DeleteSuccessfully_When_ParamsAreValid));
 
-            var warehouse = new Warehouse()
+            var customer = new Customer()
             {
-                WarehouseId = 10,
-                Street = "Dolno nanagornishte",
-                CityId = 1,
-                Type = Data.Enums.WarehouseType.Regional,
-                City = new City()
+                CustomerId = 1,
+                FirstName = "Pesho",
+                LastName = "Gosho",
+                User = new User(),
+                City = new City(),
+                Street = "Dolno nanagornishte"
             };
 
             using (var arrangeContext = new DeliverItContext(options))
             {
-                arrangeContext.Warehouses.Add(warehouse);
+                arrangeContext.Customers.Add(customer);
                 arrangeContext.SaveChanges();
             }
 
             using (var context = new DeliverItContext(options))
             {
-                var sut = new WarehouseService(context);
+                var sut = new CustomerService(context);
 
-                Assert.IsTrue(sut.Delete(10));
+                Assert.IsTrue(sut.Delete(1));
 
             }
 
         }
 
         [TestMethod]
-        public void Should_ThrowWhen_WarehoudeToDelete_IsNull()
+        public void Should_ThrowWhen_CustomerToDelete_IsNull()
         {
-            var options = Utils.GetOptions(nameof(Should_ThrowWhen_WarehoudeToDelete_IsNull));
+            var options = Utils.GetOptions(nameof(Should_ThrowWhen_CustomerToDelete_IsNull));
 
             using (var context = new DeliverItContext(options))
             {
-                var sut = new WarehouseService(context);
+                var sut = new CustomerService(context);
 
                 Assert.ThrowsException<Exception>(() => sut.Delete(1));
             }

@@ -40,7 +40,7 @@ namespace DeliverIt13.Services.Services
             return customer;
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             var customer = this.dbContext.Customers.FirstOrDefault(c => c.CustomerId == id);
 
@@ -52,7 +52,7 @@ namespace DeliverIt13.Services.Services
             this.dbContext.Remove(customer);
             this.dbContext.SaveChanges();
 
-            return;
+            return true;
         }
 
         public CustomerGetDTO Get(int id)
@@ -81,7 +81,7 @@ namespace DeliverIt13.Services.Services
                 .ThenInclude(ci => ci.Country)
                 .ToList();
 
-            if (customers == null)
+            if (customers.Count == 0)
             {
                 throw new Exception("No customers found.");
             }
@@ -104,6 +104,11 @@ namespace DeliverIt13.Services.Services
                 .Include(c=>c.City)
                 .ThenInclude(ci=>ci.Country)
                 .ToList();
+
+            if (customers.Count == 0)
+            {
+                throw new Exception("No users found.");
+            }
 
             if (string.IsNullOrEmpty(search))
             {
@@ -134,6 +139,7 @@ namespace DeliverIt13.Services.Services
             {
                 customers = customers.Where(c => c.User.Email.Contains(search, StringComparison.OrdinalIgnoreCase)).ToList() ?? throw new Exception("No matches found.");
             }
+
 
             var customersDTO = customers.Select(c => new CustomerGetDTO(c)).ToList();
 

@@ -11,7 +11,7 @@ using System.Text;
 namespace DeliverIt13.Tests.ServiceTests.WarehouseServiceTests
 {
     [TestClass]
-    public class UpdateShould
+    public class Update_Should
     {
         [TestMethod]
         public void Should_Successfully_UpdateWarehouse()

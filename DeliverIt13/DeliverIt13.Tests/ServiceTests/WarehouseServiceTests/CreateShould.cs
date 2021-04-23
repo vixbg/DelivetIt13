@@ -13,7 +13,7 @@ namespace DeliverIt13.Tests.ServiceTests.WarehouseServiceTests
     [TestClass]
     public class CreateShould
     {
-        [TestMethod]
+        //[TestMethod]
         public void Should_SuccessfullyCreateWarehouse()
         {
             var options = Utils.GetOptions(nameof(Should_SuccessfullyCreateWarehouse));
