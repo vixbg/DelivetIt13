@@ -54,7 +54,7 @@ namespace DeliverIt13.Tests.ServiceTests.WarehouseServiceTests
             {
                 var sut = new WarehouseService(context);
 
-                Assert.ThrowsException<NullReferenceException>(() => sut.Get(1));
+                Assert.ThrowsException<Exception>(() => sut.Get(1));
             }
         }
     }

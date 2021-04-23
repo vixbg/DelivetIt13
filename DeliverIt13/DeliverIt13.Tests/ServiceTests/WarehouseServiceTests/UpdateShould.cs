@@ -80,7 +80,7 @@ namespace DeliverIt13.Tests.ServiceTests.WarehouseServiceTests
             {
                 var sut = new WarehouseService(context);
 
-                Assert.ThrowsException<NullReferenceException>(() => sut.Update(null));
+                Assert.ThrowsException<Exception>(() => sut.Update(null));
             }
         }
 
@@ -101,7 +101,7 @@ namespace DeliverIt13.Tests.ServiceTests.WarehouseServiceTests
             {
                 var sut = new WarehouseService(context);
 
-                Assert.ThrowsException<NullReferenceException>(() => sut.Update(warehouseDTO));
+                Assert.ThrowsException<Exception>(() => sut.Update(warehouseDTO));
             }
         }
     }

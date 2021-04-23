@@ -23,7 +23,7 @@ namespace DeliverIt13.Tests.ServiceTests.CityServiceTests
             {
                 var sut = new CityService(context);
 
-                Assert.ThrowsException<ArgumentException>(() => sut.GetAll());
+                Assert.ThrowsException<Exception>(() => sut.GetAll());
             }
         }
 

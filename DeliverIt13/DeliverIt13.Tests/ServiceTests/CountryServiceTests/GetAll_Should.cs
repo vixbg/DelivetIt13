@@ -24,7 +24,7 @@ namespace DeliverIt13.Tests.ServiceTests.CountryServiceTests
             {
                 var sut = new CountryService(context);
 
-                Assert.ThrowsException<ArgumentException>(() => sut.GetAll());
+                Assert.ThrowsException<Exception>(() => sut.GetAll());
             }
         }
 
