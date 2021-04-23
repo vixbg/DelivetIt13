@@ -10,6 +10,6 @@ namespace DeliverIt13.Services.Contracts
         List<EmployeeGetDTO> GetAll();
         EmployeeCreateDTO Create(EmployeeCreateDTO employee);
         EmployeeUpdateDTO Update(EmployeeUpdateDTO employeeDTO);
-        void Delete(int id);
+        bool Delete(int id);
     }
 }

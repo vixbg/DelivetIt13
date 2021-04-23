@@ -37,7 +37,7 @@ namespace DeliverIt13.Services
                 .Include(e=>e.User)
                 .Include(e=>e.Warehouse)
                 .ToList();
-            if (employees == null)
+            if (employees.Count == 0)
             {
                 throw new Exception("No employees found.");
             }
@@ -70,7 +70,7 @@ namespace DeliverIt13.Services
 
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             var employee = this.dbContext.Employees.FirstOrDefault(e => e.EmployeeId == id);
             if (employee == null)
@@ -81,7 +81,7 @@ namespace DeliverIt13.Services
             this.dbContext.Employees.Remove(employee);
             this.dbContext.SaveChanges();
 
-            return;
+            return true;
         }
 
         public EmployeeUpdateDTO Update(EmployeeUpdateDTO employeeDTO)
