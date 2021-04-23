@@ -25,10 +25,10 @@ namespace DeliverIt13.Web.Controllers
         }
 
         /// <summary>
-        /// Gets the specified credentials.
+        /// Gets the specified user.
         /// </summary>
-        /// <param name="credentials">The credentials.</param>
-        /// <param name="id">The identifier.</param>
+        /// <param name="credentials">User authorization - employee.</param>
+        /// <param name="id">Id of the user.</param>
         /// <returns></returns>
         [HttpGet("{id}")]
         public IActionResult Get([FromHeader] string credentials, int id)
@@ -49,7 +49,11 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
-        
+        /// <summary>
+        /// Gets all users.
+        /// </summary>
+        /// <param name="credentials">User authorization - employee.</param>
+        /// <returns></returns>
         [HttpGet("")]
         public IActionResult GetAll([FromHeader] string credentials)
         {
@@ -69,7 +73,12 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Updates the specified user.
+        /// </summary>
+        /// <param name="userDTO">The user.</param>
+        /// <param name="credentials">User authorization - employee.</param>
+        /// <returns></returns>
         [HttpPost("")]
         public IActionResult Post([FromBody] UserCreateDTO userDTO, [FromHeader] string credentials)
         {
@@ -89,6 +98,11 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a user - public.
+        /// </summary>
+        /// <param name="userDTO">The user that will be created.</param>
+        /// <returns></returns>
         [HttpPost("public")]
         public IActionResult PostPublic([FromBody] UserCreatePublicDTO userDTO)
         {
@@ -103,6 +117,12 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes the specified user.
+        /// </summary>
+        /// <param name="id">Id of the user.</param>
+        /// <param name="credentials">User authorization - employee.</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public IActionResult Delete(int id,[FromHeader] string credentials)
         {
@@ -122,6 +142,12 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates the specified user.
+        /// </summary>
+        /// <param name="userDTO">The user.</param>
+        /// <param name="credentials">User authorization - employee.</param>
+        /// <returns></returns>
         [HttpPut("")]
         public IActionResult Put([FromBody] UserUpdateDTO userDTO,[FromHeader] string credentials)
         {

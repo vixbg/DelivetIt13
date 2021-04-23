@@ -20,7 +20,12 @@ namespace DeliverIt13.Web.Controllers
             this.authHelper = authHelper;
         }
 
-
+        /// <summary>
+        /// Gets the specified warehouse.
+        /// </summary>
+        /// <param name="id">Id of the warehouse.</param>
+        /// <param name="credentials">User authorization - employee.</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public IActionResult Get(int id,[FromHeader] string credentials)
         {
@@ -40,6 +45,11 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all warehouses - internal.
+        /// </summary>
+        /// <param name="credentials">User authorization - employee.</param>
+        /// <returns></returns>
         [HttpGet("internal")]
         public IActionResult GetAll([FromHeader] string credentials)
         {
@@ -59,6 +69,10 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all warehouses - public.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("")]
         public IActionResult GetAllPublic()
         {
@@ -73,6 +87,12 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates the specified warehouse.
+        /// </summary>
+        /// <param name="warehouse">The warehouse.</param>
+        /// <param name="credentials">User authorization - employee.</param>
+        /// <returns></returns>
         [HttpPost("")]
         public IActionResult Post([FromBody] WarehouseCreateDTO warehouse, [FromHeader] string credentials)
         {
@@ -93,6 +113,12 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes the specified warehouse.
+        /// </summary>
+        /// <param name="id">Id of the warehouse.</param>
+        /// <param name="credentials">User authorization - employee.</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public IActionResult Delete(int id,[FromHeader] string credentials)
         {
@@ -112,6 +138,12 @@ namespace DeliverIt13.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates the specified warehouse.
+        /// </summary>
+        /// <param name="warehouse">The warehouse.</param>
+        /// <param name="credentials">User authorization - employee.</param>
+        /// <returns></returns>
         [HttpPut("")]
         public IActionResult Put([FromBody] WarehouseUpdateDTO warehouse,[FromHeader] string credentials)
         {
